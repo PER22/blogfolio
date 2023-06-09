@@ -4,7 +4,7 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 require('dotenv').config();
 require('./config/database');
-const path=require("path")
+
 const app = express();
 
 app.use(logger('dev'));
@@ -34,7 +34,6 @@ app.use('/api/blog', ensureLoggedIn, require('./routes/api/post'));
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-__dirname=path.resolve();
 const port = process.env.PORT || 3001;
 
 app.listen(port, function() {
