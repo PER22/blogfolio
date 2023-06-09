@@ -42,23 +42,25 @@ export default function App() {
     <main className="App">
       {user ? <>
         <NavigationBar setUser={setUser} user={user}/>
-        <Routes>
-          <Route path="/bio" exact element={<ViewBioPage user={user}/>} />
-          <Route path="/bio/edit" element={<EditBioPage/>} />
-          
-          <Route path="/blog" exact element={<BlogPostListPage/>} />
-          <Route path="/blog/new" element={<BlogPostCreatePage/>} />
-          <Route path="/blog/:postId/edit" element={<BlogPostEditPage/>} />
-          <Route path="/blog/:postId" element={<BlogPostDetailPage/>} />
+        <section className='content'>
+          <Routes>
+            <Route path="/bio" exact element={<ViewBioPage user={user}/>} />
+            <Route path="/bio/edit" element={<EditBioPage/>} />
+            
+            <Route path="/blog" exact element={<BlogPostListPage/>} />
+            <Route path="/blog/new" element={<BlogPostCreatePage/>} />
+            <Route path="/blog/:postId/edit" element={<BlogPostEditPage/>} />
+            <Route path="/blog/:postId" element={<BlogPostDetailPage/>} />
 
-          <Route path="/projects/new" element={<ProjectCreatePage/>}/>
-          <Route path="/projects/:projectId" element={<ProjectViewPage/>} />
-          <Route path="/projects" exact element={<PortfolioPage/>} />
-          
-          <Route path="/error" element={<ErrorPage/>}/>
-          
-          <Route path="/" exact element={<HomePage/>} />
-        </Routes>
+            <Route path="/projects/new" element={<ProjectCreatePage/>}/>
+            <Route path="/projects/:projectId" element={<ProjectViewPage/>} />
+            <Route path="/projects" exact element={<PortfolioPage/>} />
+            
+            <Route path="/error" element={<ErrorPage/>}/>
+            
+            <Route path="/" exact element={<HomePage/>} />
+          </Routes>
+        </section>
         <FooterBar></FooterBar>
       </>
       :

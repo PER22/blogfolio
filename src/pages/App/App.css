@@ -1,3 +1,36 @@
-.App {
+:root{
+  --body-bg-color: #698E9C;
+  --content-text-color: white;
+  
+  --active-nav-tab-bg-color: #E4D091;
+  --active-nav-tab-text-color: purple;
+}
+
+
+.active{
+  background-color: var(--active-nav-tab-bg-color);
+  color: var(--active-nav-tab-text-color);
+}
+
+.App { 
   text-align: center;
+}
+
+.content{
+  margin-top: 3rem;
+  color: var(--content-text-color);
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+  border: 2px solid white;
+  border-radius: 1rem;
+  padding: .5rem;
+}
+
+.content a{
+  color: #EDAA25;
+}
+
+body {
+    background-color: var(--body-bg-color);
+    box-sizing: border-box;
 }

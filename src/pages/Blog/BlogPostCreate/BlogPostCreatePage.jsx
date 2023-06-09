@@ -31,8 +31,6 @@ export default function NewPostForm() {
     try {
       const postData = { title, project, article, user: user._id };
       const createdPost = await createPost(postData);
-      // Handle successful post creation, e.g., redirect to post detail page
-      console.log('Post created:', createdPost);
     } catch (error) {
       setError('Failed to create post. Please try again.');
       console.error('Error creating post:', error);

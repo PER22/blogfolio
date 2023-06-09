@@ -2,6 +2,7 @@ import { getProfileRequest } from "../../../utilities/profiles-api";
 import { useEffect, useState } from "react";
 import { getToken, getUser } from "../../../utilities/users-service";
 import { Link } from "react-router-dom";
+import "./ViewBioPage.css"
 
 export default  function ViewBioPage({user}){
     const [profile, setProfile] = useState({});
@@ -20,9 +21,14 @@ export default  function ViewBioPage({user}){
     }
     , [])
     return (<>
+        <div className="profile-card">
+            <div className="profile-pic-and-name">
+                <img className="profile-pic" alt="Profile Pic" src={profile.profilePicture}/>
+                <h3>@{user.name}</h3>
+            </div>
+        <h4>{profile.bio_string}</h4>
         
-        <h2>{profile.bio_string}</h2>
-        <img alt="Profile Pic" src={profile.profilePicture}/>
+        </div>
         <Link to="/bio/edit">Edit Profile</Link>
     </>);
 }

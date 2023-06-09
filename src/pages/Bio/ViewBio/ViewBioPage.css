@@ -1,0 +1,16 @@
+.profile-card{
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-pic-and-name{
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-pic {
+    height: 10rem;
+    width: 10rem;
+    border-radius: 10%;
+    border: 3px solid black;
+}
