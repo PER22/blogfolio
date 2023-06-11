@@ -3,13 +3,14 @@
   --content-text-color: white;
   
   --active-nav-tab-bg-color: #E4D091;
-  --active-nav-tab-text-color: purple;
+  --active-nav-tab-text-color: white;
 }
 
 
 .active{
   background-color: var(--active-nav-tab-bg-color);
   color: var(--active-nav-tab-text-color);
+  height: 100%;
 }
 
 .App { 

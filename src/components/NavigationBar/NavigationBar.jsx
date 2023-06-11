@@ -11,16 +11,17 @@ export default function NavBar({setUser, user}) {
   return (
     <nav className='navbar'>
       <span className='navlinks'>
-        <NavLink exact to="/" activeClassName="active">&nbsp;Home&nbsp;</NavLink>
+        <NavLink className='navlink'exact to="/" activeClassName="active">Home</NavLink>
         
-        <NavLink to="/bio" activeClassName="active"> &nbsp;Bio&nbsp;</NavLink>
+        <NavLink className='navlink' to="/bio" activeClassName="active"> Bio</NavLink>
 
-        <NavLink to="/projects" activeClassName="active">&nbsp;Portfolio&nbsp;</NavLink>
+        <NavLink className='navlink' to="/projects" activeClassName="active">Portfolio</NavLink>
       
-        <NavLink to="/blog" activeClassName="active">&nbsp;Blog&nbsp;</NavLink>
+        <NavLink className='navlink' to="/blog" activeClassName="active">Blog</NavLink>
       </span>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;<Link  className to="" onClick={handleLogOut}>Log Out</Link>
+      <span>
+      <Link    className='logout-link'  onClick={handleLogOut}>Log Out</Link>
+      </span>
     </nav>
   );
 }
