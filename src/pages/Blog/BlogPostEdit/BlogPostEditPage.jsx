@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getPostById, updatePost } from '../../../utilities/posts-api';
+import { getPostById, updatePost, deletePost } from '../../../utilities/posts-api';
 import { getUserProjects } from '../../../utilities/projects-api';
 
+
+const handleDeletePost = async (articleId) => {
+  try {
+    await deletePost(articleId);
+    // Perform any additional actions after successful deletion
+  } catch (error) {
+    console.error('Error deleting article:', error);
+    // Handle error if deletion fails
+  }
+};
 export default function BlogPostEditPage() {
   const { postId } = useParams();
   const [title, setTitle] = useState('');
@@ -10,6 +20,7 @@ export default function BlogPostEditPage() {
   const [projectList, setProjectList] = useState([]);
   const [article, setArticle] = useState('');
   const [error, setError] = useState('');
+  
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -54,21 +65,21 @@ export default function BlogPostEditPage() {
   };
 
   return (
-    <div>
+    <div className="info-card">
       <h1>Edit Post</h1>
       <form onSubmit={handleSubmit}>
         <label>
-          Title:
+          Title:<br/>
           <input
             type="text"
             value={title}
             onChange={(event) => setTitle(event.target.value)}
             required
-          />
+          /><br/>
         </label>
 
         <label>
-          Project:
+          Project:<br/>
           <select
             value={project}
             onChange={(event) => setProject(event.target.value)}
@@ -81,19 +92,21 @@ export default function BlogPostEditPage() {
               </option>
             ))}
           </select>
+          <br/>
         </label>
 
-        <label>
+        <label><br/>
           Article:
           <textarea
             value={article}
             onChange={(event) => setArticle(event.target.value)}
             required
-          ></textarea>
+          ></textarea><br/>
         </label>
-        <button type="submit">Update Post</button>
+        <button type="submit">Update Post</button><br/>
       </form>
       {error && <p className="error-message">{error}</p>}
+      <button onClick={() => handleDeletePost(postId)}>Delete Post</button>
     </div>
   );
 }

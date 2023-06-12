@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { getUserProjects } from '../../utilities/projects-api';
 import { Link } from 'react-router-dom';
+import EmptyPortfolioCard from '../../components/EmptyPortfolioCard/EmptyPortfolioCard';
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+
 
 export default function PortfolioPage() {
   const [projects, setProjects] = useState([]);
@@ -21,18 +24,20 @@ export default function PortfolioPage() {
 
   return (
     <>
-      <h1>Portfolio Page</h1>
+      
       <Link to="/projects/new">Create Project</Link>
       <div>
-        {projects.map((project) => (
-          <div key={project._id}>
-             <Link to={`/projects/${project._id}`}>
-              <h2>{project.title}</h2>
-            </Link>
-            <p>{project.description}</p>
-            <img src={project.image} alt={project.title} />
-          </div>
-        ))}
+        {projects.length === 0 ? <EmptyPortfolioCard /> :
+          projects.map((project) => (
+            <div className='info-card' key={project._id}>
+              <Link to={`/projects/${project._id}`}>
+                <h2>{project.title}</h2>
+              </Link>
+              <ReactMarkdown>{project.description}</ReactMarkdown>
+              {project.image && <img src={project.image} alt={project.title} />}
+            </div>
+          ))
+        }
       </div>
     </>
   );

@@ -10,6 +10,14 @@ export async function getProjectById(projectId) {
   return sendRequest(`${BASE_URL}/${projectId}`);
 }
 
+export async function updateProject(projectId, projectData) {
+  return sendRequest(`${BASE_URL}/${projectId}`, 'PUT', projectData);
+}
+
+export async function deleteProject(projectId) {
+  return sendRequest(`${BASE_URL}/${projectId}`, 'DELETE');
+}
+
 export async function getUserProjects() {
-  return sendRequest(BASE_URL); 
+  return sendRequest(BASE_URL);
 }

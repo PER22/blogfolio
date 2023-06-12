@@ -1,0 +1,8 @@
+.post-create-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: normal;
+    align-content: normal;
+    
+   
+}

@@ -16,6 +16,8 @@
     align-items: center;
     padding-top: .25rem;
     padding-bottom: .25rem;
+    padding-left: .25rem;
+    padding-right: .25rem;
   }
   .navlinks .navlink.active {
     background-color: var(--active-nav-tab-bg-color);
@@ -47,19 +49,21 @@
     text-decoration: none;
     padding: 0.5rem;
     border-radius: 20px;
+    margin-right: 1.5rem;
   }
   .navlink {
     border-radius: 20px;
+    
   }
 
   .logout-link:hover{
     background-color: var(--active-nav-tab-bg-color);
     color: var(--active-nav-tab-text-color);
-    transition: ease-in-out .1s;
+    transition: ease-in-out .3s;
   }
 
  .navlink:hover{
     background-color: var(--active-nav-tab-bg-color);
     color: var(--active-nav-tab-text-color);
-    transition: ease-in-out .2s;
+    transition: ease-in-out .3s;
   }

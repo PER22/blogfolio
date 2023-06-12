@@ -8,15 +8,15 @@ const ensureLoggedIn = require('../../config/ensureLoggedIn');
 router.get('/', ensureLoggedIn, postController.list);
 
 // GET /api/posts/:id - Get a specific blog post
-router.get('/:id', ensureLoggedIn, postController.getById);
+router.get('/:id',  postController.getById);
 
 // POST /api/posts - Create a new blog post
-router.post('/', ensureLoggedIn, postController.create);
+router.post('/',  postController.create);
 
 // PUT /api/posts/:id - Update a specific blog post
-router.put('/:id', ensureLoggedIn, postController.update);
+router.put('/:id',  postController.update);
 
 // DELETE /api/posts/:id - Delete a specific blog post
-router.delete('/:id', ensureLoggedIn, postController.remove);
+router.delete('/:id',  postController.remove);
 
 module.exports = router;

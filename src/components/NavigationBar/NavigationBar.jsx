@@ -11,7 +11,7 @@ export default function NavBar({setUser, user}) {
   return (
     <nav className='navbar'>
       <span className='navlinks'>
-        <NavLink className='navlink'exact to="/" activeClassName="active">Home</NavLink>
+        <NavLink className='navlink' to="/" activeClassName="active">Home</NavLink>
         
         <NavLink className='navlink' to="/bio" activeClassName="active"> Bio</NavLink>
 

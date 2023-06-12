@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { createProject } from '../../utilities/projects-api';
+import './NewProjectForm.css'
 
 export default function NewProjectForm() {
   const [projectData, setProjectData] = useState({
@@ -38,15 +39,22 @@ export default function NewProjectForm() {
 
   return (
     <div>
-      <div className="form-container">
-        <form autoComplete="off" onSubmit={handleSubmit}>
-          <label>Title</label>
-          <input type="text" name="title" value={projectData.title} onChange={handleChange} required />
-          <label>Description</label>
-          <input type="text" name="description" value={projectData.description} onChange={handleChange} required />
-          <label>Image</label>
-          <input type="text" name="image" value={projectData.image} onChange={handleChange} />
-          <button type="submit">Create Project</button>
+      <div className="info-card">
+        <form className='new-project-form' autoComplete="off" onSubmit={handleSubmit}>
+          <label>Title</label><br/>
+          <input type="text" name="title" value={projectData.title} onChange={handleChange} required /><br/>
+          <label>Description</label><br/>
+          <textarea
+  id="description"
+  name="description"
+  value={projectData.description}
+  onChange={handleChange}
+  rows={5}
+  required
+></textarea><br/>
+          <label>Image</label><br/>
+          <input type="text" name="image" value={projectData.image} onChange={handleChange} /><br/>
+          <button type="submit">Create Project</button><br/>
         </form>
       </div>
       {error && <p className="error-message">&nbsp;{error}</p>}

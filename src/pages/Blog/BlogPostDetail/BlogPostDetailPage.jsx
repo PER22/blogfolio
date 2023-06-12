@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPostById } from '../../../utilities/posts-api';
+import { Link } from 'react-router-dom';
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 
 export default function BlogPostDetailPage() {
   const { postId } = useParams();
+  console.log("postId", postId);
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const post = await getPostById(postId);
-        console.log(post)
-        setPost(post);
+        const tempPost = await getPostById(postId);
+        setPost(tempPost);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching post:', error);
+        console.log('Error fetching post:', error);
       }
     };
 
@@ -30,10 +32,12 @@ export default function BlogPostDetailPage() {
     return <p>Post not found.</p>;
   }
 
+
   return (
     <div>
+      <Link to={`/blog/${postId}/edit`}>Edit Post</Link>
       <h1>{post.title}</h1>
-      <p>{post.article}</p>
+      <ReactMarkdown>{post.article}</ReactMarkdown>
     </div>
   );
 }

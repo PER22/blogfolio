@@ -26,6 +26,7 @@ import PortfolioPage from '../Portfolio/PortfolioPage';
   //Projects
 import ProjectViewPage from '../Project/ProjectViewPage';
 import ProjectCreatePage from '../Project/ProjectCreatePage';
+import ProjectEditPage from '../Project/ProjectEditPage';
   //Home
 import HomePage from '../Home/HomePage';
   //Error
@@ -54,6 +55,7 @@ export default function App() {
 
             <Route path="/projects/new" element={<ProjectCreatePage/>}/>
             <Route path="/projects/:projectId" element={<ProjectViewPage/>} />
+            <Route path="projects/:projectId/edit" element={<ProjectEditPage/>} />
             <Route path="/projects" exact element={<PortfolioPage/>} />
             
             <Route path="/error" element={<ErrorPage/>}/>

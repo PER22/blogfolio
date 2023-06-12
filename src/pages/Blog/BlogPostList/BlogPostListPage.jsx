@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { getUserPosts } from '../../../utilities/posts-api';
 import { Link } from 'react-router-dom';
+import BlogPostCard from '../../../components/BlogPostCard/BlogPostCard';
+import EmptyBlogCard from '../../../components/EmptyBlogCard/EmptyBlogCard';
+
 
 export default function BlogPostListPage() {
   const [posts, setPosts] = useState([]);
@@ -20,24 +23,10 @@ export default function BlogPostListPage() {
 
   return (
     <div>
-      <h1>BlogPostListPage</h1>
       <Link to="/blog/new">New Post</Link>
-
-      {posts.map((post) => (
-        <div key={post._id} className="post-card">
-          <h2>
-            <Link to={`/blog/${post._id}`}>{post.title}</Link>
-          </h2>
-          <h4>
-            <Link to={`/projects/${post.project._id}`}>{post.project.title}</Link>
-          </h4>
-          <p>{post.article.slice(0, 30)}...</p>
-          <div className="post-info">
-            <p>Written on: {new Date(post.dateCreated).toLocaleDateString()}</p>
-            <p>By: {post.user.name}</p>
-          </div>
-          {post.image && <img src={post.image} alt="Post" />}
-        </div>
+      {posts.length===0 ? <EmptyBlogCard/> : 
+      posts.map((post) => (
+        <BlogPostCard className="info-card" post={post}/>
       ))}
     </div>
   );

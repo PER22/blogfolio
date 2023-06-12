@@ -7,6 +7,7 @@
 }
 
 
+
 .active{
   background-color: var(--active-nav-tab-bg-color);
   color: var(--active-nav-tab-text-color);
@@ -20,11 +21,12 @@
 .content{
   margin-top: 3rem;
   color: var(--content-text-color);
-  margin-left: 1.25rem;
-  margin-right: 1.25rem;
-  border: 2px solid white;
-  border-radius: 1rem;
-  padding: .5rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
 }
 
 .content a{
@@ -34,4 +36,14 @@
 body {
     background-color: var(--body-bg-color);
     box-sizing: border-box;
+}
+
+.info-card{
+  background-color: rgb(214, 214, 214);
+  border-radius: 2rem;
+  padding: 1rem;
+  color: black;
+  max-width: max-content;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
 }

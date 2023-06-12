@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createPost } from '../../../utilities/posts-api';
 import { getUser } from '../../../utilities/users-service';
 import { getUserProjects } from '../../../utilities/projects-api';
+import './BlogPostCreate.css'
 
 export default function NewPostForm() {
   const [title, setTitle] = useState('');
@@ -38,9 +39,9 @@ export default function NewPostForm() {
   };
 
   return (
-    <div>
+    <>
       <h1>New Post</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='post-create-form'>
         <label>
           Title:
           <input
@@ -50,9 +51,9 @@ export default function NewPostForm() {
             required
           />
         </label>
-
+        <br/>
         <label>
-        Project:
+        Project:<br/>
           <select
             value={project}
             onChange={(event) => setProject(event.target.value)}
@@ -65,18 +66,19 @@ export default function NewPostForm() {
             ))}
           </select>
         </label>
-
+        <br/>
         <label>
           Article:
-          <textarea
+          <textarea rows="5" cols="40"
             value={article}
             onChange={(event) => setArticle(event.target.value)}
             required>
           </textarea>
         </label>
+        <br/>
         <button type="submit">Create Post</button>
       </form>
       {error && <p className="error-message">{error}</p>}
-    </div>
+    </>
   );
 }

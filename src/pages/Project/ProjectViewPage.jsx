@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getProjectById } from "../../utilities/projects-api";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 export default function ProjectViewPage() {
   const { projectId } = useParams();
@@ -23,11 +24,19 @@ export default function ProjectViewPage() {
     return <div>Loading...</div>;
   }
 
+  const lines=project.description.split("\n");
+  console.log(lines);
   return (
     <div>
+      <Link to={`/projects/${projectId}/edit`}>Edit Project</Link>
       <h1>{project.title}</h1>
-      <p>{project.description}</p>
+      {lines.map((line,idx)=>{
+        return (<ReactMarkdown key={idx}>{line}</ReactMarkdown>);
+      })}
+      
       <img src={project.image} alt="Project" />
     </div>
   );
+
+
 }

@@ -18,8 +18,8 @@ async function getById(req, res) {
     const blogPost = await BlogPost.findById(req.params.id).populate('user');
     if (!blogPost) {
       return res.status(404).json({ error: 'Blog post not found' });
-    }else if(blogPost.user != req.user._id){
-    res.status(404).json({ error: "You don't have access to this post" });}
+    }else if(blogPost.user._id != req.user._id){
+      res.status(404).json({ error: "You don't have access to this post." });}
     else{res.status(200).json(blogPost);}
   } catch (error) {
     console.error('Error getting blog post:', error);
@@ -28,21 +28,26 @@ async function getById(req, res) {
 }
 
 // Update a blog post
+
 async function update(req, res) {
   try {
-    const { title } = req.body;
-    const blogPost = await BlogPost.findByIdAndUpdate(
+    const { project, title, article, image } = req.body;
+    const updatedBlogPost = await BlogPost.findByIdAndUpdate(
       req.params.id,
-      { title },
-      { new: true }
+      {
+        title: title,
+        project: project,
+        article: article,
+        image: image,
+      }
     );
-    if (!blogPost) {
-      return res.status(404).json({ error: 'Blog post not found' });
-    }
-    res.status(200).json(blogPost);
-  } catch (error) {
-    console.error('Error updating blog post:', error);
-    res.status(400).json({ error: 'Failed to update blog post' });
+
+    if (!updatedBlogPost) throw new Error('Project not found');
+
+    res.status(200).json(updatedBlogPost);
+  } catch (err) {
+    console.error(err);
+    res.status(400).json(err);
   }
 }
 
