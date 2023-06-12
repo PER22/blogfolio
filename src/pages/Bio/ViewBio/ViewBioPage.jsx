@@ -21,7 +21,7 @@ export default  function ViewBioPage({user}){
     }
     , [])
     return (<>
-        <div className="profile-card">
+        <div className="info-card">
             <div className="profile-pic-and-name">
                 <img className="profile-pic" alt="Profile Pic" src={profile.profilePicture}/>
                 <h3>@{user.name}</h3>

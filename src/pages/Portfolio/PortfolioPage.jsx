@@ -26,7 +26,6 @@ export default function PortfolioPage() {
     <>
       
       <Link to="/projects/new">Create Project</Link>
-      <div>
         {projects.length === 0 ? <EmptyPortfolioCard /> :
           projects.map((project) => (
             <div className='info-card' key={project._id}>
@@ -38,7 +37,7 @@ export default function PortfolioPage() {
             </div>
           ))
         }
-      </div>
+
     </>
   );
 }

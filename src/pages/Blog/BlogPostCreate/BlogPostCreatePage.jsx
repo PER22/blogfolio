@@ -39,7 +39,7 @@ export default function NewPostForm() {
   };
 
   return (
-    <>
+    <div className="info-card">
       <h1>New Post</h1>
       <form onSubmit={handleSubmit} className='post-create-form'>
         <label>
@@ -79,6 +79,6 @@ export default function NewPostForm() {
         <button type="submit">Create Post</button>
       </form>
       {error && <p className="error-message">{error}</p>}
-    </>
+    </div>
   );
 }

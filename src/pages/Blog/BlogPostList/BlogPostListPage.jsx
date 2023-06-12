@@ -22,12 +22,12 @@ export default function BlogPostListPage() {
   }, []);
 
   return (
-    <div>
+    <>
       <Link to="/blog/new">New Post</Link>
       {posts.length===0 ? <EmptyBlogCard/> : 
       posts.map((post) => (
         <BlogPostCard className="info-card" post={post}/>
       ))}
-    </div>
+    </>
   );
 }

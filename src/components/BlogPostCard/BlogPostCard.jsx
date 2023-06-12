@@ -4,7 +4,7 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 export default function BlogPostCard({post}){
 return (
     <>
-        <div key={post._id} className="post-card">
+        <div key={post._id} className="info-card">
             <h2>
                 <Link to={`/blog/${post._id}`}>{post.title}</Link>
             </h2>

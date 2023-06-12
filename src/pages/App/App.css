@@ -43,7 +43,13 @@ body {
   border-radius: 2rem;
   padding: 1rem;
   color: black;
-  max-width: max-content;
+  max-width: 50%;
   margin-bottom: 2rem;
   margin-top: 2rem;
+  margin-left: 1rem;
+  margin-right:1rem;
+  
+
 }
+
+
