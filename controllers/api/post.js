@@ -1,7 +1,18 @@
 const BlogPost = require('../../models/post');
 
+// Get all blog posts
+async function allPosts(req, res) {
+  try {
+    const blogPosts = await BlogPost.find().populate('user').populate('project');
+    res.status(200).json(blogPosts);
+  } catch (error) {
+    console.error('Error listing blog posts:', error);
+    res.status(400).json({ error: 'Failed to get blog posts' });
+  }
+}
+
 // Create a new blog post
-async function create(req, res) {
+async function createPost(req, res) {
   try {
     const { user, project, title, article } = req.body;
     const blogPost = await BlogPost.create({ user, project, title, article });
@@ -13,7 +24,7 @@ async function create(req, res) {
 }
 
 // Get a blog post by ID
-async function getById(req, res) {
+async function getPostById(req, res) {
   try {
     const blogPost = await BlogPost.findById(req.params.postId).populate('user');
     if (!blogPost) {
@@ -29,7 +40,7 @@ async function getById(req, res) {
 
 // Update a blog post
 
-async function update(req, res) {
+async function updatePost(req, res) {
   try {
     const { project, title, article, image } = req.body;
     const updatedBlogPost = await BlogPost.findByIdAndUpdate(
@@ -52,7 +63,7 @@ async function update(req, res) {
 }
 
 // Delete a blog post
-async function remove(req, res) {
+async function removePost(req, res) {
   try {
     const blogPost = await BlogPost.findByIdAndDelete(req.params.postId);
     if (!blogPost) {
@@ -65,10 +76,10 @@ async function remove(req, res) {
   }
 }
 
-// Get all blog posts
-async function list(req, res) {
+// Get all blog posts by a specified user
+async function postsBy(req, res) {
   try {
-    const blogPosts = await BlogPost.find({user: req.user._id}).populate('user').populate('project');
+    const blogPosts = await BlogPost.find({user: req.params.userId}).populate('user').populate('project');
     res.status(200).json(blogPosts);
   } catch (error) {
     console.error('Error listing blog posts:', error);
@@ -115,11 +126,14 @@ async function unstarPost(req, res) {
 }
 
 module.exports = {
-  create,
-  getById,
-  update,
-  remove,
-  list,
+  allPosts,
+  createPost,
+  getPostById,
+  updatePost,
+  removePost,
+  postsBy,
   starPost,
   unstarPost
 };
+
+

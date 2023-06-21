@@ -2,16 +2,28 @@ const project = require('../../models/project');
 const Project = require('../../models/project');
 
 module.exports = {
-  create,
-  detail,
-  index,
-  update,
-  delete: deleteProject,
+  allProjects,
+  createProject,
+  getProjectById,
+  projectsBy,
+  updateProject,
+  deleteProject,
   starProject,
   unstarProject
 };
 
-async function create(req, res) {
+async function allProjects(req, res) {
+  try {
+    const all_projects = await Project.find();
+    res.status(200).json(all_projects);
+  } catch (err) {
+    console.error(err);
+    res.status(400).json(err);
+  }
+}
+
+
+async function createProject(req, res) {
   try {
     // Add the project to the db
     const project = await Project.create({
@@ -28,7 +40,7 @@ async function create(req, res) {
   }
 }
 
-async function detail(req, res) {
+async function getProjectById(req, res) {
   try {
     const project = await Project.findById(req.params.projectId).populate('user', 'name email');
     if (!project) throw new Error('Project not found');
@@ -39,9 +51,9 @@ async function detail(req, res) {
   }
 }
 
-async function index(req, res) {
+async function projectsBy(req, res) {
   try {
-    const projects = await Project.find({ user: req.user._id });
+    const projects = await Project.find({ user: req.params.userId });
     res.status(200).json(projects);
   } catch (err) {
     console.error(err);
@@ -49,7 +61,7 @@ async function index(req, res) {
   }
 }
 
-async function update(req, res) {
+async function updateProject(req, res) {
   try {
     const updatedProject = await Project.findByIdAndUpdate(
       req.params.projectId,

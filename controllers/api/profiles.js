@@ -1,12 +1,23 @@
 const Profile = require('../../models/profile');
 
 module.exports = {
-    detail,
-    update,
+    allProfiles,
+    getProfileById,
+    updateProfile,
     deleteProfile
 }
 
-async function detail(req, res){
+async function allProfiles(req, res){
+  try{
+      const profiles = await Profile.find();
+      res.status(200).json(profiles)
+  }catch(err){
+      console.log(err)
+      res.status(400).json(err)
+  }
+}
+
+async function getProfileById(req, res){
     try{
         const profile = await Profile.findOne({_id:req.params.profileId});
         res.status(200).json(profile)
@@ -16,7 +27,7 @@ async function detail(req, res){
     }
 }
 
-async function update(req, res) {
+async function updateProfile(req, res) {
     try {
         const selectedProfile = await Profile.findOne({_id: req.params.profileId});
         if (selectedProfile.user._id === req.user._id){
