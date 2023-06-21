@@ -6,16 +6,16 @@ const ensureLoggedIn = require('../../config/ensureLoggedIn');
 // POST /api/projects
 router.post('/', ensureLoggedIn, projectController.create);
 
-// GET /api/projects/:id
-router.get('/:id', ensureLoggedIn, projectController.detail);
+// GET /api/projects/:projectId
+router.get('/:projectId', ensureLoggedIn, projectController.detail);
 
-// PUT /api/projects/:id
-router.put('/:id', ensureLoggedIn, projectController.update);
+// PUT /api/projects/:projectId
+router.put('/:projectId', ensureLoggedIn, projectController.update);
 
-// DELETE /api/projects/:id
-router.delete('/:id', ensureLoggedIn, projectController.delete);
+// DELETE /api/projects/:projectId
+router.delete('/:projectId', ensureLoggedIn, projectController.delete);
 
-// GET /api/projects/user
+// GET /api/projects/
 router.get('/', ensureLoggedIn, projectController.index);
 
 module.exports = router;

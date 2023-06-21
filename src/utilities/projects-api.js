@@ -21,3 +21,11 @@ export async function deleteProject(projectId) {
 export async function getUserProjects() {
   return sendRequest(BASE_URL);
 }
+
+export async function starProject(projectId) {
+  return sendRequest(`${BASE_URL}/${projectId}/star`, "POST");
+}
+
+export async function unstarProject(projectId) {
+  return sendRequest(`${BASE_URL}/${projectId}/star`, "DELETE");
+}

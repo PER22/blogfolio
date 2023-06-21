@@ -15,7 +15,7 @@ async function create(req, res) {
 // Get a blog post by ID
 async function getById(req, res) {
   try {
-    const blogPost = await BlogPost.findById(req.params.id).populate('user');
+    const blogPost = await BlogPost.findById(req.params.postId).populate('user');
     if (!blogPost) {
       return res.status(404).json({ error: 'Blog post not found' });
     }else if(blogPost.user._id != req.user._id){
@@ -33,7 +33,7 @@ async function update(req, res) {
   try {
     const { project, title, article, image } = req.body;
     const updatedBlogPost = await BlogPost.findByIdAndUpdate(
-      req.params.id,
+      req.params.postId,
       {
         title: title,
         project: project,
@@ -54,7 +54,7 @@ async function update(req, res) {
 // Delete a blog post
 async function remove(req, res) {
   try {
-    const blogPost = await BlogPost.findByIdAndDelete(req.params.id);
+    const blogPost = await BlogPost.findByIdAndDelete(req.params.postId);
     if (!blogPost) {
       return res.status(404).json({ error: 'Blog post not found' });
     }
@@ -76,10 +76,50 @@ async function list(req, res) {
   }
 }
 
+async function starPost(req, res) {
+  try {
+    const postId = req.params.postId;
+    const userId = req.user._id;
+
+    // Add the user's reference to the post's stars array
+    const post = await BlogPost.findByIdAndUpdate(
+      postId,
+      { $addToSet: { stars: userId }, $inc: { numStars: 1 } },
+      { new: true }
+    );
+
+    res.status(200).json(post);
+  } catch (error) {
+    console.error('Error starring post:', error);
+    res.status(500).json({ error: 'Failed to star post' });
+  }
+}
+
+async function unstarPost(req, res) {
+  try {
+    const postId = req.params.postId;
+    const userId = req.user._id;
+
+    // Remove the user's reference from the post's stars array
+    const post = await BlogPost.findByIdAndUpdate(
+      postId,
+      { $pull: { stars: userId }, $inc: { numStars: -1 } },
+      { new: true }
+    );
+
+    res.status(200).json(post);
+  } catch (error) {
+    console.error('Error unstarring post:', error);
+    res.status(500).json({ error: 'Failed to unstar post' });
+  }
+}
+
 module.exports = {
   create,
   getById,
   update,
   remove,
-  list
+  list,
+  starPost,
+  unstarPost
 };

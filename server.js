@@ -25,9 +25,9 @@ app.use('/api/users', require('./routes/api/users'));
 // Protect the api routes below from anon users
 const ensureLoggedIn = require('./config/ensureLoggedIn');
 
-app.use('/api/profile', ensureLoggedIn, require('./routes/api/profile'));
-app.use('/api/projects', ensureLoggedIn, require('./routes/api/projects'));
-app.use('/api/blog', ensureLoggedIn, require('./routes/api/post'));
+app.use('/api/profile', require('./routes/api/profile'));
+app.use('/api/projects',  require('./routes/api/projects'));
+app.use('/api/blog', require('./routes/api/post'));
 
 // "catch-all" route that will match all GET requests
 // that don't match an API route defined above

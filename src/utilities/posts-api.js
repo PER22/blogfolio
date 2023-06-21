@@ -21,3 +21,11 @@ export async function updatePost(postId, postData) {
 export async function deletePost(postId) {
   return sendRequest(`${BASE_URL}/${postId}`, 'DELETE');
 }
+
+export async function starPost(postId) {
+  return sendRequest(`${BASE_URL}/${postId}/star`, "POST");
+}
+
+export async function unstarPost(postId) {
+  return sendRequest(`${BASE_URL}/${postId}/star`, "DELETE");
+}

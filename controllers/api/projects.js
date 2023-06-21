@@ -1,3 +1,4 @@
+const project = require('../../models/project');
 const Project = require('../../models/project');
 
 module.exports = {
@@ -5,7 +6,9 @@ module.exports = {
   detail,
   index,
   update,
-  delete: deleteProject
+  delete: deleteProject,
+  starProject,
+  unstarProject
 };
 
 async function create(req, res) {
@@ -27,7 +30,7 @@ async function create(req, res) {
 
 async function detail(req, res) {
   try {
-    const project = await Project.findById(req.params.id).populate('user', 'name email');
+    const project = await Project.findById(req.params.projectId).populate('user', 'name email');
     if (!project) throw new Error('Project not found');
     res.status(200).json(project);
   } catch (err) {
@@ -49,7 +52,7 @@ async function index(req, res) {
 async function update(req, res) {
   try {
     const updatedProject = await Project.findByIdAndUpdate(
-      req.params.id,
+      req.params.projectId,
       {
         title: req.body.title,
         description: req.body.description,
@@ -69,7 +72,7 @@ async function update(req, res) {
 
 async function deleteProject(req, res) {
   try {
-    const deletedProject = await Project.findByIdAndRemove(req.params.id);
+    const deletedProject = await Project.findByIdAndRemove(req.params.projectId);
 
     if (!deletedProject) throw new Error('Project not found');
 
@@ -79,3 +82,42 @@ async function deleteProject(req, res) {
     res.status(400).json(err);
   }
 }
+
+async function starProject(req, res) {
+  try {
+    const projectId = req.params.projectId;
+    const userId = req.user._id;
+
+    // Add the user's reference to the project's stars array
+    const project = await Project.findByIdAndUpdate(
+      projectId,
+      { $addToSet: { stars: userId }, $inc: { numStars: 1 } },
+      { new: true }
+    );
+
+    res.status(200).json(project);
+  } catch (error) {
+    console.error('Error starring project:', error);
+    res.status(500).json({ error: 'Failed to star project' });
+  }
+}
+
+async function unstarProject(req, res) {
+  try {
+    const projectId = req.params.projectId;
+    const userId = req.user._id;
+
+    // Remove the user's reference from the project's stars array
+    const project = await Project.findByIdAndUpdate(
+      projectId,
+      { $pull: { stars: userId }, $inc: { numStars: -1 } },
+      { new: true }
+    );
+
+    res.status(200).json(project);
+  } catch (error) {
+    console.error('Error unstarring project:', error);
+    res.status(500).json({ error: 'Failed to unstar project' });
+  }
+}
+

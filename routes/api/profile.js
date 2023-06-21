@@ -3,9 +3,9 @@ const router = express.Router();
 const profileController = require('../../controllers/api/profiles');
 
 
-router.get('/', profileController.detail)
-router.put('/', profileController.update);
-router.delete('/', profileController.deleteProfile);
+router.get('/:profileId', profileController.detail)
+router.put('/:profileId', profileController.update);
+router.delete('/:profileId', profileController.deleteProfile);
 
 
 module.exports = router;
