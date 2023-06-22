@@ -1,3 +1,4 @@
+const { json } = require('react-router-dom');
 const Profile = require('../../models/profile');
 
 module.exports = {
@@ -37,7 +38,7 @@ async function updateProfile(req, res) {
           );
           res.status(200).json(updatedProfile);
         }else{
-          throw new Error("You don't have edit access to that!");
+          res.status(403).json({ error: "You don't have edit access to that!" })
         }
         
     } catch (err) {
@@ -48,17 +49,25 @@ async function updateProfile(req, res) {
   
 async function deleteProfile(req, res) {
     try {
-      
       let selectedProfile = await Profile.findOne({ _id: req.params.profileId });
-      if(selectedProfile.user._id === req.user._id){
-        await Profile.findOneAndDelete({_id: req.params.profileId})
-      }else{
-        throw new Error("You aren't able to delete that!")
+      let 
+      if(!selectedProfile){
+        res.status(404).json({error: "Profile not found."});
+        return;
       }
-      res.status(200).json({ message: 'Profile deleted' });
-    } catch (err) {
-      console.log(err);
-      res.status(400).json(err);
+      if(selectedProfile.user._id === req.user._id){
+
+        await Profile.findOneAndDelete({_id: req.params.profileId});
+      }else{
+        res.status(403).json({ error: "You don't have edit access to that." })
+      }
+      res.status(200).json({ message: 'Profile deleted.' });
+    } catch (error) {
+      console.log(error);
+      res.status(400).json(error);
     }
 }
+
+
+
   

@@ -30,7 +30,7 @@ async function getPostById(req, res) {
     if (!blogPost) {
       return res.status(404).json({ error: 'Blog post not found' });
     }else if(blogPost.user._id != req.user._id){
-      res.status(404).json({ error: "You don't have access to this post." });}
+      res.status(403).json({ error: "You don't have access to this post." });}
     else{res.status(200).json(blogPost);}
   } catch (error) {
     console.error('Error getting blog post:', error);
@@ -50,7 +50,8 @@ async function updatePost(req, res) {
         project: project,
         article: article,
         image: image,
-      }
+      },
+      { new: true }
     );
 
     if (!updatedBlogPost) throw new Error('Project not found');
