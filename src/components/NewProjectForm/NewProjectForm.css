@@ -2,5 +2,8 @@ form input{
     margin-bottom: 1.5rem;
 }
 
+.new-project-description-textarea{
+    max-width: 100%;
 
+}
 

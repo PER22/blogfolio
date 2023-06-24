@@ -39,9 +39,9 @@ export default function NewPostForm() {
   };
 
   return (
-    <div className="info-card">
-      <h1>New Post</h1>
-      <form onSubmit={handleSubmit} className='post-create-form'>
+    <>
+    <h1>New Post</h1>
+      <form onSubmit={handleSubmit} className='post-create-form info-card'>
         <label>
           Title:
           <input
@@ -68,8 +68,8 @@ export default function NewPostForm() {
         </label>
         <br/>
         <label>
-          Article:
-          <textarea rows="5" cols="40"
+          Article:<br/>
+          <textarea rows="15" cols="35"
             value={article}
             onChange={(event) => setArticle(event.target.value)}
             required>
@@ -79,6 +79,6 @@ export default function NewPostForm() {
         <button type="submit">Create Post</button>
       </form>
       {error && <p className="error-message">{error}</p>}
-    </div>
+    </>
   );
 }

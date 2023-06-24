@@ -8,6 +8,7 @@ export default function EditBioPage() {
   });
   const [error, setError] = useState('');
 
+useEffect(() => {
   const fetchProfile = async () => {
     try {
       const profile = await getProfileRequest();
@@ -21,9 +22,9 @@ export default function EditBioPage() {
     }
   };
 
-  useEffect(() => {
-    fetchProfile();
-  }, []);
+  fetchProfile();
+}, [profileData]);
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;

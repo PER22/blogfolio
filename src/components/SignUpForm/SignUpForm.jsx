@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import { signUp } from '../../utilities/users-service';
 
 export default function SignUpForm({setUser}){
@@ -14,9 +14,12 @@ export default function SignUpForm({setUser}){
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     try {
-      const form = formData;
-      delete form.confirm;
-      delete form.error;
+      const form = {
+        name: formData.name,
+        username: formData.username,
+        email: formData.email,
+        password: formData.password
+      };
       // The promise returned by the signUp service method
       // will resolve to the user object included in the
       // payload of the JSON Web Token (JWT)
@@ -33,13 +36,15 @@ export default function SignUpForm({setUser}){
   }
 
   const handleChange = (evt) => {
-    setFormData({
-      [evt.target.name]: evt.target.value,
-      error: ''
-    });
-  }
+    const { name, value } = evt.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+      error: name === 'confirm' && prevState.password !== value ? 'Passwords do not match' : '',
+    }));
+  };
+  
 
-  const disable = formData.password !== formData.confirm;
   
   return (
     <>
@@ -93,7 +98,7 @@ export default function SignUpForm({setUser}){
           <button 
             className="auth-submit-button" 
             type="submit" 
-            disabled={disable}
+            disabled={formData.password !== formData.confirm}
           >Sign Up</button>
         </form>
       </div>

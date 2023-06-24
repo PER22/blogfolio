@@ -14,7 +14,7 @@ export default function NewProjectForm() {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     try {
-      const project = await createProject(projectData);
+      await createProject(projectData);
       // Reset form data
       setProjectData({
         title: '',
@@ -38,26 +38,27 @@ export default function NewProjectForm() {
   };
 
   return (
-    <div>
+    <>
       <div className="info-card">
         <form className='new-project-form' autoComplete="off" onSubmit={handleSubmit}>
           <label>Title</label><br/>
           <input type="text" name="title" value={projectData.title} onChange={handleChange} required /><br/>
           <label>Description</label><br/>
-          <textarea
-  id="description"
-  name="description"
-  value={projectData.description}
-  onChange={handleChange}
-  rows={5}
-  required
-></textarea><br/>
+          <textarea className='new-project-description-textarea'
+            cols="35"
+            id="description"
+            name="description"
+            value={projectData.description}
+            onChange={handleChange}
+            rows="5"
+            required
+          ></textarea><br/>
           <label>Image</label><br/>
           <input type="text" name="image" value={projectData.image} onChange={handleChange} /><br/>
           <button type="submit">Create Project</button><br/>
         </form>
       </div>
       {error && <p className="error-message">&nbsp;{error}</p>}
-    </div>
+    </>
   );
 }

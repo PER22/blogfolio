@@ -1,6 +1,6 @@
 import { getProfileRequest } from "../../../utilities/profiles-api";
 import { useEffect, useState } from "react";
-import { getToken, getUser } from "../../../utilities/users-service";
+import { getUser } from "../../../utilities/users-service";
 import { Link } from "react-router-dom";
 import "./ViewBioPage.css"
 
