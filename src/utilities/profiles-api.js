@@ -1,14 +1,18 @@
 import sendRequest from "./send-request";
 const BASE_URL = '/api/profile';
 
-export async function getProfileRequest(){
+export async function getAllProfilesRequest(){
     return sendRequest(`${BASE_URL}`) 
 }
 
-export async function updateProfileRequest(profileData) {
-    return sendRequest(BASE_URL, 'PUT', profileData);
-  }
+export async function getProfileByIdRequest(profileId){
+  return sendRequest(`${BASE_URL}/${profileId}`) 
+}
+
+export async function updateProfileRequest(profileId, profileData) {
+    return sendRequest(`${BASE_URL}/${profileId}`, 'PUT', profileData);
+}
   
-  export async function deleteProfileRequest() {
+export async function deleteProfileRequest() {
     return sendRequest(BASE_URL, 'DELETE');
-  }
+}

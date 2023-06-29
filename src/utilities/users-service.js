@@ -3,9 +3,8 @@ import * as usersAPI from './users-api';
 export async function signUp(userData){
     const token = await usersAPI.signUp(userData);
     localStorage.setItem('token', token)
-    return getUser();
+    return getLoggedInUser();
 }
-
 
 export function getToken() {
     // getItem returns null if there's no string
@@ -22,7 +21,7 @@ export function getToken() {
     return token;
 }
   
-export function getUser() {
+export function getLoggedInUser() {
     const token = getToken();
     // If there's a token, return the user in the payload, otherwise return null
     return token ? JSON.parse(atob(token.split('.')[1])).user : null;
@@ -40,5 +39,5 @@ export function logOut() {
 export async function login(credentials) {
     const token = await usersAPI.login(credentials);
     localStorage.setItem('token', token)
-    return getUser();
+    return getLoggedInUser();
 }

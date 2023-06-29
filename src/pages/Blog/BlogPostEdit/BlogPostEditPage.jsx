@@ -57,7 +57,6 @@ export default function BlogPostEditPage() {
       const postData = { title, project, article };
       const updatedPost = await updatePost(postId, postData);
       // Handle successful post update, e.g., redirect to post detail page
-      console.log('Post updated:', updatedPost);
     } catch (error) {
       setError('Failed to update post. Please try again.');
       console.error('Error updating post:', error);

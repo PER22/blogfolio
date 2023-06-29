@@ -41,7 +41,6 @@ export default function ProjectEditPage() {
       const projectData = { title, description, image };
       const updatedProject = await updateProject(projectId, projectData);
       // Handle successful project update, e.g., redirect to project detail page
-      console.log('Project updated:', updatedProject);
     } catch (error) {
       setError('Failed to update project. Please try again.');
       console.error('Error updating project:', error);

@@ -24,17 +24,16 @@ export default function ProjectViewPage() {
     return <div>Loading...</div>;
   }
 
-  const lines=project.description.split("\n");
-  console.log(lines);
+  const lines = project.description.split("\n");
   return (
     <div>
-      <Link to={`/projects/${projectId}/edit`}>Edit Project</Link>
-      <h1>{project.title}</h1>
-      {lines.map((line,idx)=>{
-        return (<ReactMarkdown key={idx}>{line}</ReactMarkdown>);
-      })}
-      
-      <img src={project.image} alt="Project" />
+      <div className='info-card' key={project._id}>
+        
+          <h1 className="project-title">{project.title}</h1>
+        
+        {project.image && <img className="project-image" src={project.image} alt={project.title} />}
+        <ReactMarkdown className="project-description-paragraph">{project.description}</ReactMarkdown>
+      </div>
     </div>
   );
 

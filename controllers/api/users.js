@@ -31,7 +31,6 @@ async function create(req, res) {
     // Check for validation errors
     const errors = validationResult(req);    
     if (!errors.isEmpty()) {
-      console.log(JSON.stringify(errors.array()));
       return res.status(405).json({ errors: errors.array() });
     }
     // Add the user to the db
@@ -79,7 +78,13 @@ async function login(req, res) {
   }
 }
 
-/*-- Helper Functions --*/
+async function getUserByUsername(req,res){
+      // Find the user by their email address
+      const user = await User.findOne({username: req.params.username});
+      if (!user){ throw new Error(`Failed to find User with Username: ${req.params.username}`);}
+      // Check if the password matches
+      res.status(200).json(user);
+}
 
 function createJWT(user) {
   return jwt.sign(
@@ -92,5 +97,6 @@ function createJWT(user) {
 
 module.exports = {
   create,
-  login
+  login,
+  getUserByUsername
 };

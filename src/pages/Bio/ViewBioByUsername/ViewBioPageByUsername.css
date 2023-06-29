@@ -1,0 +1,22 @@
+.profile-pic-and-names{
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-names{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: flex-start;
+}
+.profile-names *{
+    margin-bottom: 0;
+}
+
+.profile-pic {
+    height: 10rem;
+    width: 10rem;
+    border-radius: 10%;
+    border: 3px solid black;
+    margin-right: 1rem;
+}

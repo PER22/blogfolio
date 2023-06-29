@@ -6,16 +6,10 @@
   --active-nav-tab-text-color: white;
 }
 
-
-
 .active{
   background-color: var(--active-nav-tab-bg-color);
   color: var(--active-nav-tab-text-color);
   height: 100%;
-}
-
-.App { 
-  text-align: center;
 }
 
 .content{
@@ -24,9 +18,9 @@
 
   display: flex;
   flex-direction: column;
-  justify-content:flex-start;
   align-content: center;
   align-items: center;
+  
 }
 
 .content a{
@@ -48,6 +42,19 @@ body {
   margin-top: 2rem;
   margin-left: 1rem;
   margin-right: 1rem;
+  overflow: hidden;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 1rem;
 }
 
 
+.page-heading{
+  text-align: center;
+}

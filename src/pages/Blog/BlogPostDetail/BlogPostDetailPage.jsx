@@ -6,7 +6,6 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 
 export default function BlogPostDetailPage() {
   const { postId } = useParams();
-  console.log("postId", postId);
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -17,7 +16,6 @@ export default function BlogPostDetailPage() {
         setPost(tempPost);
         setLoading(false);
       } catch (error) {
-        console.log('Error fetching post:', error);
       }
     };
 

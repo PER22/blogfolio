@@ -1,0 +1,15 @@
+.project-description-paragraph{
+    text-align: justify;
+}
+
+.project-image{
+    height: 200px;
+    float: left;
+    margin-right: 1rem;
+    margin-bottom: .5rem;
+    border-radius: .5rem;
+}
+
+.project-title{
+    text-align: center;
+}

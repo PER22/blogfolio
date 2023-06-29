@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createPost } from '../../../utilities/posts-api';
-import { getUser } from '../../../utilities/users-service';
+import { getLoggedInUser } from '../../../utilities/users-service';
 import { getUserProjects } from '../../../utilities/projects-api';
 import './BlogPostCreate.css'
 
@@ -10,7 +10,7 @@ export default function NewPostForm() {
   const [projectList, setProjectList] = useState([]);
   const [article, setArticle] = useState('');
   const [error, setError] = useState('');
-  const user = getUser()
+  const user = getLoggedInUser()
 
   useEffect(() => {
     const fetchProjects = async () => {

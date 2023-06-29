@@ -20,7 +20,7 @@ async function allProfiles(req, res){
 
 async function getProfileById(req, res){
     try{
-        const profile = await Profile.findOne({_id:req.params.profileId});
+        const profile = await Profile.findOne({_id: req.params.profileId});
         res.status(200).json(profile)
     }catch(err){
         console.log(err)
@@ -31,10 +31,13 @@ async function getProfileById(req, res){
 async function updateProfile(req, res) {
     try {
         const selectedProfile = await Profile.findOne({_id: req.params.profileId});
-        if (selectedProfile.user._id === req.user._id){
+        console.log("selectedProfile.user: ", selectedProfile.user.toHexString());
+        console.log("req.user._id: ", req.user._id);
+
+        if (selectedProfile.user.toHexString() === req.user._id){
           const updatedProfile = await Profile.findOneAndUpdate(
             { _id: req.params.profileId},
-            { bio_string: req.body.bio_string || "", profilePicture: req.body.profilePicture || "" },
+            { bio_string: req.body.bio_string || "", profilePicture: req.body.profilePicture || "", github_link : req.body.github_link || "" },
           );
           res.status(200).json(updatedProfile);
         }else{
@@ -49,7 +52,7 @@ async function updateProfile(req, res) {
   
 async function deleteProfile(req, res) {
     try {
-      let selectedProfile = await Profile.findOne({ _id: req.params.profileId });
+      let selectedProfile = await Profile.findOne({ _id: req.params.profileId});
       let 
       if(!selectedProfile){
         res.status(404).json({error: "Profile not found."});

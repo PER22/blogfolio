@@ -22,8 +22,10 @@ router.put('/:postId',  ensureLoggedIn, postController.updatePost);
 // DELETE /api/posts/:postId - Delete a specific blog post
 router.delete('/:postId',  ensureLoggedIn, postController.removePost);
 
+// POST /api/posts/:postId/star - Star post
 router.post('/:postId/star', ensureLoggedIn, postController.starPost);
 
+// DELETE /api/posts/:postId/star - Unstar post
 router.delete('/:postId/star', ensureLoggedIn, postController.unstarPost);
 
 module.exports = router;
