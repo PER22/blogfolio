@@ -4,7 +4,7 @@ export default function ViewAllBiosPage() {
   const [bios, setBios] = useState([]);
 
   useEffect(() => {
-    async function fetchBios() {
+    async function getAllProfiles() {
       try {
         const biosData = await getAllProfilesRequest();
         setBios(biosData);
@@ -12,8 +12,7 @@ export default function ViewAllBiosPage() {
         console.log(error);
       }
     }
-
-    fetchBios();
+    getAllProfiles();
   }, []);
 
   return (

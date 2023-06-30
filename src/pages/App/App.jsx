@@ -1,10 +1,9 @@
 //REACT imports
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { Routes, Route} from 'react-router-dom';
 
 //Utility imports
 import { getLoggedInUser } from '../../utilities/users-service';
-import { getProfileByIdRequest } from '../../utilities/profiles-api';
 
 //CSS
 import './App.css';
@@ -22,7 +21,8 @@ import EditBioPage from '../Bio/EditBio/EditBioPage';
 import BlogPostCreatePage from '../Blog/BlogPostCreate/BlogPostCreatePage';
 import BlogPostEditPage from '../Blog/BlogPostEdit/BlogPostEditPage';
 import BlogPostDetailPage from '../Blog/BlogPostDetail/BlogPostDetailPage';
-import BlogPostListPage from '../Blog/BlogPostList/BlogPostListPage';
+import BlogPostByUsernamePage from '../Blog/BlogPostByUsername/BlogPostByUsernamePage';
+import AllBlogPostsPage from '../Blog/AllBlogPosts/AllBlogPostsPage';
 
   //Portfolio
 import PortfolioPage from '../Portfolio/PortfolioPage';
@@ -31,6 +31,7 @@ import PortfolioPage from '../Portfolio/PortfolioPage';
 import ProjectViewPage from '../Project/ProjectViewPage';
 import ProjectCreatePage from '../Project/ProjectCreatePage';
 import ProjectEditPage from '../Project/ProjectEditPage';
+import ViewAllProjectsPage from '../Project/ViewAllProjectsPage'
 
   //Home
 import HomePage from '../Home/HomePage';
@@ -45,10 +46,6 @@ import FooterBar from '../../components/FooterBar/FooterBar'
 
 export default function App() {
   const [loggedInUser, setLoggedInUser] = useState(getLoggedInUser());
-  
-
-
-
   return (
     <main className="App">
         <NavigationBar setUser={setLoggedInUser} user={loggedInUser} />
@@ -60,16 +57,17 @@ export default function App() {
             <Route path="/bio/edit" element={<EditBioPage user={loggedInUser}/>} />
             <Route path="/bio/:username" element={<ViewBioPageByUsername user={loggedInUser}/>} />
             
-
-            <Route path="/blog" exact element={<BlogPostListPage/>} />
-            <Route path="/blog/new" element={<BlogPostCreatePage/>} />
-            <Route path="/blog/:postId/edit" element={<BlogPostEditPage/>} />
+            <Route path="/blog" exact element={<AllBlogPostsPage/>} />
+            <Route path="/blog/by/:username" element={<BlogPostByUsernamePage/>} />
+            <Route path="/blog/new" element={<BlogPostCreatePage  user={loggedInUser}/>}/>
+            <Route path="/blog/:postId/edit" element={<BlogPostEditPage  user={loggedInUser}/>} />
             <Route path="/blog/:postId" element={<BlogPostDetailPage/>} />
 
-            <Route path="/projects/new" element={<ProjectCreatePage/>}/>
+            <Route path="/projects" exact element={<ViewAllProjectsPage/>} />
+            <Route path="/projects/new" element={<ProjectCreatePage user={loggedInUser}/>}/>
             <Route path="/projects/:projectId" element={<ProjectViewPage/>} />
-            <Route path="projects/:projectId/edit" element={<ProjectEditPage/>} />
-            <Route path="/projects" exact element={<PortfolioPage/>} />
+            <Route path="projects/:projectId/edit" element={<ProjectEditPage user={loggedInUser}/>} />
+            <Route path="/projects/by/:username"  element={<PortfolioPage/>} />
             
             <Route path="/error" element={<ErrorPage/>}/>
             

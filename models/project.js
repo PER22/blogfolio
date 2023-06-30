@@ -7,7 +7,8 @@ const projectSchema = new Schema({
   image: { type: String, default: "https://example.com/default-image.jpg" },
   user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   stars: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-  numStars: {type: Number, default:0}
+  numStars: {type: Number, default:0},
+  repo_link: { type: String },
 }, {
   timestamps: true
 });

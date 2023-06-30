@@ -79,11 +79,16 @@ async function login(req, res) {
 }
 
 async function getUserByUsername(req,res){
+    try{
       // Find the user by their email address
       const user = await User.findOne({username: req.params.username});
-      if (!user){ throw new Error(`Failed to find User with Username: ${req.params.username}`);}
+      if (!user){ throw new Error(`Failed to find User with username ${req.params.username}`);}
       // Check if the password matches
       res.status(200).json(user);
+    }catch(err){
+      res.status(404).json({error: err})
+    }
+      
 }
 
 function createJWT(user) {

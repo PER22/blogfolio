@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { getUserProjects } from '../../utilities/projects-api';
-import { Link } from 'react-router-dom';
+import { getProjectsBy } from '../../utilities/projects-api';
+import { Link, useParams } from 'react-router-dom';
 import EmptyPortfolioCard from '../../components/EmptyPortfolioCard/EmptyPortfolioCard';
 import ReactMarkdown from 'react-markdown';
 import "./PortfolioPage.css"
 
 export default function PortfolioPage() {
   const [projects, setProjects] = useState([]);
-
+  const {username} = useParams();
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         // Call the API function to fetch projects associated with the logged-in user
-        const projectsData = await getUserProjects();
+        const projectsData = await getProjectsBy(username);
         setProjects(projectsData);
       } catch (error) {
         console.error('Error fetching projects:', error);

@@ -1,5 +1,6 @@
-const project = require('../../models/project');
+
 const Project = require('../../models/project');
+const User = require('../../models/user');
 
 module.exports = {
   allProjects,
@@ -53,11 +54,15 @@ async function getProjectById(req, res) {
 
 async function projectsBy(req, res) {
   try {
-    const projects = await Project.find({ user: req.params.userId });
-    res.status(200).json(projects);
+    const foundUser = await User.findOne({username: req.params.username});
+    if(!foundUser){
+      return res.status(404).json({error: 'User not found.'});
+    }
+    const projectsByUsername = await Project.find({user: foundUser._id}).populate('user');
+    res.status(200).json(projectsByUsername);
   } catch (err) {
-    console.error(err);
-    res.status(400).json(err);
+    console.error('Error listing projects: ', err);
+    res.status(400).json({ error: `Failed to get projects: ${err}` });
   }
 }
 

@@ -9,15 +9,18 @@ export default function NavBar({setUser, user}) {
       setUser(null);
   }
   return (
-    <nav className='navbar'>
+    <nav className='navbar closed'>
       <span className='navlinks'>
-        <NavLink className='navlink' to="/" activeClassName="active">Home</NavLink>
         
-        {user ? <NavLink className='navlink' to={`/bio/${user.username}`} activeClassName="active"> Bio</NavLink>: ""}
+        <NavLink className='navlink' to="/">Home</NavLink>
+        
+        {user ? <NavLink className='navlink' exact strict to={`bio/${user.username}`}>My Profile</NavLink>: ""}
 
-        {user ? <NavLink className='navlink' to="/projects" activeClassName="active">Portfolio</NavLink> : ""}
+        {user ? <NavLink className='navlink' exact strict to={`projects/by/${user.username}`}>My Portfolio</NavLink> : ""}
       
-        {user ? <NavLink className='navlink' to="/blog" activeClassName="active">Blog</NavLink> : ""}
+        {user ? <NavLink className='navlink' exact strict to={`blog/by/${user.username}`}>My Blog</NavLink> : ""}
+
+
       </span>
       <span>
         {user ? <Link className='auth-link' onClick={handleLogOut} to="/auth">Log Out</Link> : <Link className='auth-link' to="/auth">Log In</Link> }

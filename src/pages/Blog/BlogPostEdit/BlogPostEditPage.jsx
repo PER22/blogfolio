@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPostById, updatePost, deletePost } from '../../../utilities/posts-api';
-import { getUserProjects } from '../../../utilities/projects-api';
+import { getProjectsBy } from '../../../utilities/projects-api';
 
 
 const handleDeletePost = async (articleId) => {
@@ -40,7 +40,7 @@ export default function BlogPostEditPage() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const projectsData = await getUserProjects();
+        const projectsData = await getProjectsBy();
         setProjectList(projectsData);
       } catch (error) {
         console.error('Error fetching projects:', error);
@@ -55,7 +55,7 @@ export default function BlogPostEditPage() {
 
     try {
       const postData = { title, project, article };
-      const updatedPost = await updatePost(postId, postData);
+      await updatePost(postId, postData);
       // Handle successful post update, e.g., redirect to post detail page
     } catch (error) {
       setError('Failed to update post. Please try again.');

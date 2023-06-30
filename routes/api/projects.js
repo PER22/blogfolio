@@ -3,10 +3,11 @@ const router = express.Router();
 const projectController = require('../../controllers/api/projects');
 const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
+// GET /api/projects 
 router.get('/', projectController.allProjects);
 
-// GET /api/projects/by/123bjh1kg14khj14/
-router.get('/by/:userId', projectController.projectsBy);
+// GET /api/projects/by/PER22
+router.get('/by/:username', projectController.projectsBy);
 
 // GET /api/projects/:projectId
 router.get('/:projectId', ensureLoggedIn, projectController.getProjectById);

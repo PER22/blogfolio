@@ -12,7 +12,7 @@ const handleDeleteProject = async (projectId) => {
   }
 };
 
-export default function ProjectEditPage() {
+export default function ProjectEditPage({user}) {
   const { projectId } = useParams();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

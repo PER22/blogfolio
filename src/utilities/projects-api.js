@@ -18,7 +18,11 @@ export async function deleteProject(projectId) {
   return sendRequest(`${BASE_URL}/${projectId}`, 'DELETE');
 }
 
-export async function getUserProjects() {
+export async function getProjectsBy(username) {
+  return sendRequest(`${BASE_URL}/by/${username}`);
+}
+
+export async function getAllProjects() {
   return sendRequest(BASE_URL);
 }
 

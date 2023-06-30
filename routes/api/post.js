@@ -4,28 +4,28 @@ const postController = require('../../controllers/api/post');
 const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
 
-// GET /api/posts - Get all blog posts
+// GET /api/blog - Get all blog posts
 router.get('/', postController.allPosts);
 
-//GET /api/posts/by/:profileID
-router.get('/by/:userId', postController.postsBy);
+//GET /api/blog/by/:username - Get all posts by specific User
+router.get('/by/:username', postController.postsBy);
 
-// GET /api/posts/:postId - Get a specific blog post
+// GET /api/blog/:postId - Get a specific blog post
 router.get('/:postId',  postController.getPostById);
 
-// POST /api/posts - Create a new blog post
+// POST /api/blog - Create a new blog post
 router.post('/',  ensureLoggedIn, postController.createPost);
 
-// PUT /api/posts/:postId - Update a specific blog post
+// PUT /api/blog/:postId - Update a specific blog post
 router.put('/:postId',  ensureLoggedIn, postController.updatePost);
 
-// DELETE /api/posts/:postId - Delete a specific blog post
+// DELETE /api/blog/:postId - Delete a specific blog post
 router.delete('/:postId',  ensureLoggedIn, postController.removePost);
 
-// POST /api/posts/:postId/star - Star post
+// POST /api/blog/:postId/star - Star post
 router.post('/:postId/star', ensureLoggedIn, postController.starPost);
 
-// DELETE /api/posts/:postId/star - Unstar post
+// DELETE /api/blog/:postId/star - Unstar post
 router.delete('/:postId/star', ensureLoggedIn, postController.unstarPost);
 
 module.exports = router;

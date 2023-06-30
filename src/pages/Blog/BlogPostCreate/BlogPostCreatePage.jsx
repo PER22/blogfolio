@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { createPost } from '../../../utilities/posts-api';
-import { getLoggedInUser } from '../../../utilities/users-service';
-import { getUserProjects } from '../../../utilities/projects-api';
+import { getProjectsBy } from '../../../utilities/projects-api';
 import './BlogPostCreate.css'
 
-export default function NewPostForm() {
+export default function NewPostForm({user}) {
   const [title, setTitle] = useState('');
   const [project, setProject] = useState('');
   const [projectList, setProjectList] = useState([]);
   const [article, setArticle] = useState('');
   const [error, setError] = useState('');
-  const user = getLoggedInUser()
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const projectsData = await getUserProjects();
+        const projectsData = await getProjectsBy(user.username);
         setProjectList(projectsData);
       } catch (error) {
         console.error('Error fetching projects:', error);
@@ -31,7 +29,7 @@ export default function NewPostForm() {
 
     try {
       const postData = { title, project, article, user: user._id };
-      const createdPost = await createPost(postData);
+      await createPost(postData);
     } catch (error) {
       setError('Failed to create post. Please try again.');
       console.error('Error creating post:', error);
