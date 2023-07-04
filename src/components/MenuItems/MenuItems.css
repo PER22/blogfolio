@@ -1,0 +1,18 @@
+.dropdown-contents{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    padding-top: 1rem;
+    background-color: var(--nav-bar-bg-color);
+    color: var(--nav-bar-text-color);
+    padding:.5rem;
+    border-radius: .25rem;
+}
+
+.menu-category{
+    margin-right: 2rem;
+}
+
+.category-closed{
+    display: none;
+}

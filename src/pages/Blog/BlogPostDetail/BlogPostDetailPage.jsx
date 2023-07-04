@@ -4,7 +4,7 @@ import { getPostById } from '../../../utilities/posts-api';
 import { Link } from 'react-router-dom';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 
-export default function BlogPostDetailPage() {
+export default function BlogPostDetailPage({user}) {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -33,7 +33,7 @@ export default function BlogPostDetailPage() {
 
   return (
     <div>
-      <Link to={`/blog/${postId}/edit`}>Edit Post</Link>
+      {user && <>{user._id === post.user._id? <Link to={`/blog/${postId}/edit`}>Edit Post</Link>: ""}</>}
       <h1>{post.title}</h1>
       <ReactMarkdown>{post.article}</ReactMarkdown>
     </div>

@@ -1,5 +1,8 @@
 const { json } = require('react-router-dom');
 const Profile = require('../../models/profile');
+const Post = require('../../models/post');
+const User = require('../../models/user');
+const Project = require('../../models/project');
 
 module.exports = {
     allProfiles,
@@ -10,7 +13,7 @@ module.exports = {
 
 async function allProfiles(req, res){
   try{
-      const profiles = await Profile.find();
+      const profiles = await Profile.find().populate('user');
       res.status(200).json(profiles)
   }catch(err){
       console.log(err)
@@ -38,6 +41,7 @@ async function updateProfile(req, res) {
           const updatedProfile = await Profile.findOneAndUpdate(
             { _id: req.params.profileId},
             { bio_string: req.body.bio_string || "", profilePicture: req.body.profilePicture || "", github_link : req.body.github_link || "" },
+            { new: true }
           );
           res.status(200).json(updatedProfile);
         }else{
@@ -52,17 +56,18 @@ async function updateProfile(req, res) {
   
 async function deleteProfile(req, res) {
     try {
-      let selectedProfile = await Profile.findOne({ _id: req.params.profileId});
-      let 
+      let selectedProfile = await Profile.findOne({ _id: req.params.profileId}).populate("user"); 
       if(!selectedProfile){
-        res.status(404).json({error: "Profile not found."});
-        return;
+        return res.status(404).json({error: "Profile not found."});
       }
-      if(selectedProfile.user._id === req.user._id){
-
+      console.log("selectedProfile.user._id:",selectedProfile.user._id);
+      if(selectedProfile.user._id.toHexString() === req.user._id){
+        await Project.deleteMany({user: selectedProfile.user._id});
+        await Post.deleteMany({user: selectedProfile.user._id});
         await Profile.findOneAndDelete({_id: req.params.profileId});
+        await User.findOneAndDelete({_id: selectedProfile.user._id.toHexString()});
       }else{
-        res.status(403).json({ error: "You don't have edit access to that." })
+        return res.status(403).json({ error: "You don't have edit access to that." })
       }
       res.status(200).json({ message: 'Profile deleted.' });
     } catch (error) {

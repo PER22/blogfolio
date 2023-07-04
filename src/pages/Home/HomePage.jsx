@@ -9,19 +9,11 @@ export default function HomePage() {
         <p>Share your thought process, and log your progress.</p>
       </div>
       <div className="info-card">
-        <p>You don't need to be logged in to access profiles, blog posts, or projects.
-          You can also follow the links below to see:
-          <ul>
-            <li>
-              <Link className='navlink' end to={`blog`}>everyone's blogs</Link>,
-            </li>
-            <li>  
-              <Link className='navlink' end to={`projects`}>everyone's projects</Link>,
-            </li>
-            <li>
-              or <Link className='navlink' end to={`bio`}>everyone's profiles</Link>.
-            </li>
-          </ul>
+        <p>You don't need to be logged in to access profiles, blog posts, or projects.<br/>
+          You can also follow the links here to see
+              <Link className='navlink' end to={`blog`}> everyone's blogs</Link>, 
+              <Link className='navlink' end to={`projects`}> everyone's projects</Link>,
+              and <Link className='navlink' end to={`bio`}> everyone's profiles</Link>.
         </p>
       </div>
     </>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { updateProfileRequest, getProfileByIdRequest } from '../../../utilities/profiles-api';
+import { updateProfileRequest, getProfileByIdRequest, deleteProfileRequest } from '../../../utilities/profiles-api';
 import './EditBioPage.css' 
+import { Link } from 'react-router-dom';
 
 export default function EditBioPage({user}) {
   const [profileData, setProfileData] = useState({
@@ -47,6 +48,11 @@ useEffect(() => {
     }
   };
 
+
+  const deleteProf = async (event)=>{
+    await deleteProfileRequest(user.profile);
+  }
+
   return (
     <div>
       <h1 className="page-heading">Edit Profile</h1>
@@ -86,6 +92,7 @@ useEffect(() => {
         <button type="submit">Update Profile</button>
       </form>
       {error && <p className="error-message">{error}</p>}
+      <div onClick={deleteProf}>Delete Profile?</div>
     </div>
   );
 }

@@ -61,11 +61,11 @@ export default function App() {
             <Route path="/blog/by/:username" element={<BlogPostByUsernamePage/>} />
             <Route path="/blog/new" element={<BlogPostCreatePage  user={loggedInUser}/>}/>
             <Route path="/blog/:postId/edit" element={<BlogPostEditPage  user={loggedInUser}/>} />
-            <Route path="/blog/:postId" element={<BlogPostDetailPage/>} />
+            <Route path="/blog/:postId" element={<BlogPostDetailPage user={loggedInUser}/>} />
 
             <Route path="/projects" exact element={<ViewAllProjectsPage/>} />
             <Route path="/projects/new" element={<ProjectCreatePage user={loggedInUser}/>}/>
-            <Route path="/projects/:projectId" element={<ProjectViewPage/>} />
+            <Route path="/projects/:projectId" element={<ProjectViewPage user={loggedInUser}/>} />
             <Route path="projects/:projectId/edit" element={<ProjectEditPage user={loggedInUser}/>} />
             <Route path="/projects/by/:username"  element={<PortfolioPage/>} />
             

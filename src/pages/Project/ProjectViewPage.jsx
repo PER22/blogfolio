@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { getProjectById } from "../../utilities/projects-api";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
-export default function ProjectViewPage() {
+export default function ProjectViewPage({user}) {
   const { projectId } = useParams();
   const [project, setProject] = useState(null);
 
@@ -34,6 +34,8 @@ export default function ProjectViewPage() {
         {project.image && <img className="project-image" src={project.image} alt={project.title} />}
         <ReactMarkdown className="project-description-paragraph">{project.description}</ReactMarkdown>
       </div>
+      {user && <>{project.user._id === user._id ? <Link to={`/projects/${project._id}/edit`}>Edit Project</Link> : "" }</>}
+      
     </div>
   );
 

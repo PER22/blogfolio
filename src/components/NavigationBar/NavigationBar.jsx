@@ -1,6 +1,7 @@
 import { Link, NavLink} from 'react-router-dom';
 import * as userService from '../../utilities/users-service';
 import './NavigationBar.css'
+import MenuItems from '../MenuItems/MenuItems';
 
 export default function NavBar({setUser, user}) {
 
@@ -9,16 +10,19 @@ export default function NavBar({setUser, user}) {
       setUser(null);
   }
   return (
-    <nav className='navbar closed'>
+    <nav className='navbar'>
       <span className='navlinks'>
         
-        <NavLink className='navlink' to="/">Home</NavLink>
+        <NavLink className='top-level-menu-item' end to="/">Home</NavLink>
         
-        {user ? <NavLink className='navlink' exact strict to={`bio/${user.username}`}>My Profile</NavLink>: ""}
-
-        {user ? <NavLink className='navlink' exact strict to={`projects/by/${user.username}`}>My Portfolio</NavLink> : ""}
-      
-        {user ? <NavLink className='navlink' exact strict to={`blog/by/${user.username}`}>My Blog</NavLink> : ""}
+        {user ? 
+            <MenuItems user={user}/>
+          : <>
+          <NavLink className='top-level-menu-item' to="/bio">All Profiles</NavLink>
+          <NavLink className='top-level-menu-item'  to="projects/">All Portfolios</NavLink>
+          <NavLink className='top-level-menu-item'  to={`/blog`}>All Blogs</NavLink> 
+          </> 
+        }
 
 
       </span>

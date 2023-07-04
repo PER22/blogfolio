@@ -1,6 +1,7 @@
 
 const Project = require('../../models/project');
 const User = require('../../models/user');
+const Post = require('../../models/post')
 
 module.exports = {
   allProjects,
@@ -89,10 +90,10 @@ async function updateProject(req, res) {
 
 async function deleteProject(req, res) {
   try {
-    const deletedProject = await Project.findByIdAndRemove(req.params.projectId);
-
-    if (!deletedProject) throw new Error('Project not found');
-
+    const deletedProject = await Project.findById(req.params.projectId);
+    if (!deletedProject) throw new Error('Project not found.');
+    await Post.deleteMany({project: req.params.projectId});
+    await Project.findByIdAndDelete(req.params.projectId);
     res.status(200).json({ message: 'Project deleted successfully' });
   } catch (err) {
     console.error(err);

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getAllProfilesRequest } from "../../../utilities/profiles-api";
+import BioCard from "../../../components/BioCard/BioCard";
 export default function ViewAllBiosPage() {
   const [bios, setBios] = useState([]);
 
@@ -17,8 +18,8 @@ export default function ViewAllBiosPage() {
 
   return (
     <>
-      {bios.map((eachBio, index) => (
-        <h3 key={eachBio._id}>{eachBio.bio_string}</h3>
+      {bios.map((eachBio) => (
+        <BioCard profile={eachBio} user={eachBio.user}/>
       ))}
     </>
   );

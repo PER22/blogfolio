@@ -10,7 +10,7 @@ router.get('/', projectController.allProjects);
 router.get('/by/:username', projectController.projectsBy);
 
 // GET /api/projects/:projectId
-router.get('/:projectId', ensureLoggedIn, projectController.getProjectById);
+router.get('/:projectId', projectController.getProjectById);
 
 // POST /api/projects
 router.post('/', ensureLoggedIn, projectController.createProject);

@@ -1,69 +1,46 @@
-
-:root{
-    --nav-bar-bg-color: #F3974E;
-    --nav-bar-text-color: black;
+:root {
+  --nav-bar-bg-color: #F3974E;
+  --nav-bar-text-color: black;
 }
 
 .navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 10;
-    background-color: var(--nav-bar-bg-color);
-    color: var(--nav-bar-text-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: .25rem;
-    padding-bottom: .25rem;
-    padding-left: .25rem;
-    padding-right: .25rem;
-  }
-  .navlinks .navlink.active {
-    background-color: var(--active-nav-tab-bg-color);
-    color: var(--active-nav-tab-text-color);
-  }
-  
-  .navlinks {
-    display: flex;
-    align-items: center;
-  }
-  
-  .navlinks .navlink {
-    color: black;
-    text-decoration: none;
-    padding: 0.5rem;
-  }
-  
-  .navlinks .navlink.active {
-    background-color: var(--active-nav-tab-bg-color);
-    color: var(--active-nav-tab-text-color);
-  }
-  
-  .navlinks .navlink:not(:last-child) {
-    margin-right: 1rem;
-  }
-  
-  .auth-link {
-    color: black;
-    text-decoration: none;
-    padding: 0.5rem;
-    border-radius: 20px;
-    margin-right: 1.5rem;
-  }
-  .navlink {
-    border-radius: 20px;
-    
-  }
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  background-color: var(--nav-bar-bg-color);
+  color: var(--nav-bar-text-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.25rem;
+}
+.navbar a{
+  text-decoration: none;
+  color: black;
+}
 
-  .auth-link:hover{
-    background-color: var(--active-nav-tab-bg-color);
-    color: var(--active-nav-tab-text-color);
-    transition: ease-in-out .3s;
-  }
+.navlinks {
+  display: flex;
+  align-items: center;
+}
 
- .navlink:hover{
-    background-color: var(--active-nav-tab-bg-color);
-    color: var(--active-nav-tab-text-color);
-    transition: ease-in-out .3s;
-  }
+.navlinks .top-level-menu-item {
+  padding: 0.5rem;
+}
+
+
+
+.navlinks .navlink:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.auth-link {
+  color: black;
+  text-decoration: none;
+  padding: 0.5rem;
+  border-radius: 20px;
+  margin-right: 1.5rem;
+}
+
+

@@ -13,6 +13,6 @@ export async function updateProfileRequest(profileId, profileData) {
     return sendRequest(`${BASE_URL}/${profileId}`, 'PUT', profileData);
 }
   
-export async function deleteProfileRequest() {
-    return sendRequest(BASE_URL, 'DELETE');
+export async function deleteProfileRequest(profileId) {
+    return sendRequest(`${BASE_URL}/${profileId}`, 'DELETE');
 }
