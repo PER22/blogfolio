@@ -14,6 +14,7 @@ export default function ViewBioPageByUsername({user}) {
         const fetchData = async () => {
             try {
                 const tempUser = await getUserByUsername(username);
+                console.log(tempUser);
                 if (tempUser) {
                     setSpecifiedUser(tempUser);
                     const tempProfile = await getProfileByIdRequest(tempUser.profile);

@@ -15,7 +15,7 @@ async function allPosts(req, res) {
 // Create a new blog post
 async function createPost(req, res) {
   try {
-    const { user, project, title, article } = req.body;
+    const { user, project, title, article} = req.body;
     const blogPost = await BlogPost.create({ user, project, title, article });
     res.status(201).json(blogPost);
   } catch (error) {
@@ -40,18 +40,23 @@ async function getPostById(req, res) {
 // Update a blog post
 async function updatePost(req, res) {
   try {
-    const { project, title, article, image } = req.body;
+    const { project, title, article } = req.body;
+    const foundPost = await BlogPost.findById(req.params.postId).populate("user");
+    if(!foundPost){
+      return res.status(404).json({error: "Project not found."});
+    }
+    if(foundPost.user._id != req.user._id){
+      return res.status(403).json({error: "You don't have write access to this project."});
+    }
     const updatedBlogPost = await BlogPost.findByIdAndUpdate(
       req.params.postId,
       {
         title: title,
         project: project,
         article: article,
-        image: image,
       },
       { new: true }
     );
-    if (!updatedBlogPost) throw new Error('Project not found');
     res.status(200).json(updatedBlogPost);
   } catch (err) {
     console.error(err);
@@ -62,11 +67,15 @@ async function updatePost(req, res) {
 // Delete a blog post
 async function removePost(req, res) {
   try {
-    const blogPost = await BlogPost.findByIdAndDelete(req.params.postId);
-    if (!blogPost) {
-      return res.status(404).json({ error: 'Blog post not found' });
+    const foundPost = await BlogPost.findById(req.params.postId).populate("user");
+    if(!foundPost){
+      return res.status(404).json({error: "Project not found."});
     }
-    res.status(200).json(blogPost);
+    if(foundPost.user._id != req.user._id){
+      return res.status(403).json({error: "You don't have delete access to this project."});
+    }
+    await BlogPost.findByIdAndDelete(req.params.postId);
+    res.status(200);
   } catch (error) {
     console.error('Error deleting blog post:', error);
     res.status(400).json({ error: 'Failed to delete blog post' });
@@ -110,7 +119,10 @@ async function unstarPost(req, res) {
     const postId = req.params.postId;
     const userId = req.user._id;
 
-    // Remove the user's reference from the post's stars array
+    const foundPost = await BlogPost.findById(postId);
+    if(!foundPost){
+      return res.status(404).json({eror: "Post not found."});
+    }
     const post = await BlogPost.findByIdAndUpdate(
       postId,
       { $pull: { stars: userId }, $inc: { numStars: -1 } },

@@ -16,7 +16,7 @@ module.exports = {
 
 async function allProjects(req, res) {
   try {
-    const all_projects = await Project.find();
+    const all_projects = await Project.find().populate('user');
     res.status(200).json(all_projects);
   } catch (err) {
     console.error(err);
@@ -55,11 +55,11 @@ async function getProjectById(req, res) {
 
 async function projectsBy(req, res) {
   try {
-    const foundUser = await User.findOne({username: req.params.username});
-    if(!foundUser){
-      return res.status(404).json({error: 'User not found.'});
+    const foundUser = await User.findOne({ username: req.params.username });
+    if (!foundUser) {
+      return res.status(404).json({ error: 'User not found.' });
     }
-    const projectsByUsername = await Project.find({user: foundUser._id}).populate('user');
+    const projectsByUsername = await Project.find({ user: foundUser._id }).populate('user');
     res.status(200).json(projectsByUsername);
   } catch (err) {
     console.error('Error listing projects: ', err);
@@ -69,6 +69,13 @@ async function projectsBy(req, res) {
 
 async function updateProject(req, res) {
   try {
+    const projectFound = await Project.findById(req.params.projectId).populate('user');
+    if (!projectFound) {
+      return res.status(404).json({error: "Project not found."})
+    }
+    if (projectFound.user._id != req.user._id) {
+      return res.status(403).json({error: "You don't have write access to this resource."});
+    }
     const updatedProject = await Project.findByIdAndUpdate(
       req.params.projectId,
       {
@@ -78,9 +85,6 @@ async function updateProject(req, res) {
       },
       { new: true }
     );
-
-    if (!updatedProject) throw new Error('Project not found');
-
     res.status(200).json(updatedProject);
   } catch (err) {
     console.error(err);
@@ -90,9 +94,14 @@ async function updateProject(req, res) {
 
 async function deleteProject(req, res) {
   try {
-    const deletedProject = await Project.findById(req.params.projectId);
-    if (!deletedProject) throw new Error('Project not found.');
-    await Post.deleteMany({project: req.params.projectId});
+    const foundProject = await Project.findById(req.params.projectId).populate('user');
+    if (!foundProject){
+      return res.status(404).json({error: "Project not found."});
+    }
+    if(foundProject.user._id != req.user._id){
+      return res.status(403).json({error: "You don't have write access to this resource."});
+    }
+    await Post.deleteMany({ project: req.params.projectId });
     await Project.findByIdAndDelete(req.params.projectId);
     res.status(200).json({ message: 'Project deleted successfully' });
   } catch (err) {

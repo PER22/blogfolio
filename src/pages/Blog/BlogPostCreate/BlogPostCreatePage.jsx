@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createPost } from '../../../utilities/posts-api';
 import { getProjectsBy } from '../../../utilities/projects-api';
 import './BlogPostCreate.css'
+import { useNavigate } from 'react-router-dom';
 
 export default function NewPostForm({user}) {
   const [title, setTitle] = useState('');
@@ -9,6 +10,7 @@ export default function NewPostForm({user}) {
   const [projectList, setProjectList] = useState([]);
   const [article, setArticle] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -24,12 +26,13 @@ export default function NewPostForm({user}) {
   }, []);
 
 
-  const handleSubmit = async (event) => {
+  const handleCreatePostSubmit = async (event) => {
     event.preventDefault();
 
     try {
       const postData = { title, project, article, user: user._id };
-      await createPost(postData);
+      const createdPost = await createPost(postData);
+      navigate(`/blog/${createdPost._id}`);
     } catch (error) {
       setError('Failed to create post. Please try again.');
       console.error('Error creating post:', error);
@@ -39,7 +42,7 @@ export default function NewPostForm({user}) {
   return (
     <>
     <h1>New Post</h1>
-      <form onSubmit={handleSubmit} className='post-create-form info-card'>
+      <form onSubmit={handleCreatePostSubmit} className='post-create-form info-card'>
         <label>
           Title:
           <input

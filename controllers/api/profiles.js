@@ -33,19 +33,16 @@ async function getProfileById(req, res){
 
 async function updateProfile(req, res) {
     try {
-        const selectedProfile = await Profile.findOne({_id: req.params.profileId});
-        console.log("selectedProfile.user: ", selectedProfile.user.toHexString());
-        console.log("req.user._id: ", req.user._id);
-
-        if (selectedProfile.user.toHexString() === req.user._id){
+        const selectedProfile = await Profile.findOne({_id: req.params.profileId}).populate("user");
+        if (selectedProfile.user._id === req.user._id){
           const updatedProfile = await Profile.findOneAndUpdate(
             { _id: req.params.profileId},
             { bio_string: req.body.bio_string || "", profilePicture: req.body.profilePicture || "", github_link : req.body.github_link || "" },
             { new: true }
           );
-          res.status(200).json(updatedProfile);
+          return res.status(200).json(updatedProfile);
         }else{
-          res.status(403).json({ error: "You don't have edit access to that!" })
+          return res.status(403).json({ error: "You don't have edit access to that!" })
         }
         
     } catch (err) {
@@ -61,7 +58,7 @@ async function deleteProfile(req, res) {
         return res.status(404).json({error: "Profile not found."});
       }
       console.log("selectedProfile.user._id:",selectedProfile.user._id);
-      if(selectedProfile.user._id.toHexString() === req.user._id){
+      if(selectedProfile.user._id === req.user._id){
         await Project.deleteMany({user: selectedProfile.user._id});
         await Post.deleteMany({user: selectedProfile.user._id});
         await Profile.findOneAndDelete({_id: req.params.profileId});

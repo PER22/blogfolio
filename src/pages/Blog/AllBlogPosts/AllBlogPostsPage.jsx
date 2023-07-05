@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getAllPosts } from "../../../utilities/posts-api";
+import BlogPostPreviewCard from "../../../components/BlogPostPreviewCard/BlogPostPreviewCard";
 export default function AllBlogPostsPage(){
     const [posts, setPosts] = useState([]);
 
@@ -18,7 +19,7 @@ export default function AllBlogPostsPage(){
   return (
     <>
       {posts.map((eachPost, index) => (
-        <h3 key={eachPost._id}>{eachPost.title}</h3>
+        <BlogPostPreviewCard post={eachPost}/>
       ))}
     </>
   );

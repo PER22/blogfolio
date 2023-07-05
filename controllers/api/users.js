@@ -80,10 +80,10 @@ async function login(req, res) {
 
 async function getUserByUsername(req,res){
     try{
-      // Find the user by their email address
+      // Find the user by their username
       const user = await User.findOne({username: req.params.username});
+      console.log("User from Controller method: ",JSON.stringify(user));
       if (!user){ throw new Error(`Failed to find User with username ${req.params.username}`);}
-      // Check if the password matches
       res.status(200).json(user);
     }catch(err){
       res.status(404).json({error: err})

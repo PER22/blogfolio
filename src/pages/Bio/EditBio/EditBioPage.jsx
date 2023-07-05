@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { updateProfileRequest, getProfileByIdRequest, deleteProfileRequest } from '../../../utilities/profiles-api';
 import './EditBioPage.css' 
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { logOut } from '../../../utilities/users-service';
 
 export default function EditBioPage({user}) {
   const [profileData, setProfileData] = useState({
@@ -29,6 +30,7 @@ useEffect(() => {
   fetchProfile();
 }, []);
 
+const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -38,25 +40,35 @@ useEffect(() => {
     });
   };
 
-  const handleSubmit = async (event) => {
+  const updateProfile = async (event) => {
     event.preventDefault();
     try {
       const updatedProfile = await updateProfileRequest(user.profile, profileData);
+      navigate(`profile/${updatedProfile._id}`);
     } catch (error) {
       setError('Failed to update profile. Please try again.');
-      console.error('Error updating profile:', error);
+      console.log('Error updating profile:', error);
     }
   };
 
 
   const deleteProf = async (event)=>{
-    await deleteProfileRequest(user.profile);
+    try{
+      await deleteProfileRequest(user.profile);
+      logOut();
+      navigate(`/`);
+    }catch(err){
+      
+      setError("Failed to delete profile.");
+      console.log("Error deleting profile:", err);
+    }
+    
   }
 
   return (
     <div>
       <h1 className="page-heading">Edit Profile</h1>
-      <form className="info-card" onSubmit={handleSubmit}>
+      <form className="info-card" onSubmit={updateProfile}>
         <label>
           Bio: <br/>
         </label>

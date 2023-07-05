@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { createProject } from '../../utilities/projects-api';
 import './NewProjectForm.css'
+import { useNavigate } from 'react-router-dom';
 
 export default function NewProjectForm() {
+  const navigate = useNavigate();
   const [projectData, setProjectData] = useState({
     title: '',
     description: '',
@@ -11,17 +13,16 @@ export default function NewProjectForm() {
 
   const [error, setError] = useState('');
 
-  const handleSubmit = async (evt) => {
+  const createProj = async (evt) => {
     evt.preventDefault();
     try {
-      await createProject(projectData);
-      // Reset form data
+      const createdProject = await createProject(projectData);
       setProjectData({
         title: '',
         description: '',
         image: ''
       });
-      // Optionally perform any other actions after project creation
+      navigate(`/projects/${createdProject._id}`);
     } catch (error) {
       console.log(error);
       setError('Project creation failed. Please try again.');
@@ -40,7 +41,7 @@ export default function NewProjectForm() {
   return (
     <>
       <div className="info-card">
-        <form className='new-project-form' autoComplete="off" onSubmit={handleSubmit}>
+        <form className='new-project-form' autoComplete="off" onSubmit={createProj}>
           <label>Title</label><br/>
           <input type="text" name="title" value={projectData.title} onChange={handleChange} required /><br/>
           <label>Description</label><br/>

@@ -1,26 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getPostById, updatePost, deletePost } from '../../../utilities/posts-api';
 import { getProjectsBy } from '../../../utilities/projects-api';
 
 
-const handleDeletePost = async (articleId) => {
-  try {
-    await deletePost(articleId);
-    // Perform any additional actions after successful deletion
-  } catch (error) {
-    console.error('Error deleting article:', error);
-    // Handle error if deletion fails
-  }
-};
-export default function BlogPostEditPage() {
+
+export default function BlogPostEditPage({user}) {
   const { postId } = useParams();
   const [title, setTitle] = useState('');
   const [project, setProject] = useState('');
   const [projectList, setProjectList] = useState([]);
   const [article, setArticle] = useState('');
   const [error, setError] = useState('');
-  
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -40,7 +32,7 @@ export default function BlogPostEditPage() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const projectsData = await getProjectsBy();
+        const projectsData = await getProjectsBy(user.username);
         setProjectList(projectsData);
       } catch (error) {
         console.error('Error fetching projects:', error);
@@ -50,23 +42,33 @@ export default function BlogPostEditPage() {
     fetchProjects();
   }, []);
 
-  const handleSubmit = async (event) => {
+  const handleUpdatePostSubmit = async (event) => {
     event.preventDefault();
 
     try {
       const postData = { title, project, article };
-      await updatePost(postId, postData);
-      // Handle successful post update, e.g., redirect to post detail page
+      const updatedPost = await updatePost(postId, postData);
+      navigate(`/blog/${updatedPost._id}`)
     } catch (error) {
       setError('Failed to update post. Please try again.');
-      console.error('Error updating post:', error);
+      console.log('Error updating post:', error);
+    }
+  };
+
+  const handleDeletePost = async (articleId) => {
+    try {
+      await deletePost(articleId);
+      navigate(`/blog/by/${user.username}`)
+    } catch (error) {
+      console.log('Error deleting post:', error);
+      setError("Deleting post failed.")
     }
   };
 
   return (
     <div className="info-card">
       <h1>Edit Post</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleUpdatePostSubmit}>
         <label>
           Title:<br/>
           <input

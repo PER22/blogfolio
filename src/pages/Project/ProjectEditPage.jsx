@@ -1,16 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getProjectById, updateProject, deleteProject } from '../../utilities/projects-api';
 
-const handleDeleteProject = async (projectId) => {
-  try {
-    await deleteProject(projectId);
-    // Perform any additional actions after successful deletion
-  } catch (error) {
-    console.error('Error deleting project:', error);
-    // Handle error if deletion fails
-  }
-};
+
 
 export default function ProjectEditPage({user}) {
   const { projectId } = useParams();
@@ -18,6 +10,17 @@ export default function ProjectEditPage({user}) {
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const handleDeleteProject = async (projectId) => {
+    try {
+      await deleteProject(projectId);
+      navigate(`/projects/by/${user.username}`)
+    } catch (err) {
+      setError("Failed to delete project.");
+      console.error('Error deleting project:', err);
+      // Handle error if deletion fails
+    }
+  };
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -34,13 +37,12 @@ export default function ProjectEditPage({user}) {
     fetchProject();
   }, [projectId]);
 
-  const handleSubmit = async (event) => {
+  const handleUpdateProjectSubmission = async (event) => {
     event.preventDefault();
-
     try {
       const projectData = { title, description, image };
       const updatedProject = await updateProject(projectId, projectData);
-      // Handle successful project update, e.g., redirect to project detail page
+      navigate(`/projects/${updatedProject._id}`)
     } catch (error) {
       setError('Failed to update project. Please try again.');
       console.error('Error updating project:', error);
@@ -50,7 +52,7 @@ export default function ProjectEditPage({user}) {
   return (
     <div className="info-card">
       <h1>Edit Project</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleUpdateProjectSubmission}>
         <label>
           Title:<br />
           <input

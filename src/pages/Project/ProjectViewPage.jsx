@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getProjectById } from "../../utilities/projects-api";
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+
+import ProjectDetailCard from "../../components/ProjectDetailCard/ProjectDetailCard";
 
 export default function ProjectViewPage({user}) {
   const { projectId } = useParams();
@@ -26,17 +27,10 @@ export default function ProjectViewPage({user}) {
 
   const lines = project.description.split("\n");
   return (
-    <div>
-      <div className='info-card' key={project._id}>
-        
-          <h1 className="project-title">{project.title}</h1>
-        
-        {project.image && <img className="project-image" src={project.image} alt={project.title} />}
-        <ReactMarkdown className="project-description-paragraph">{project.description}</ReactMarkdown>
-      </div>
+    <>
       {user && <>{project.user._id === user._id ? <Link to={`/projects/${project._id}/edit`}>Edit Project</Link> : "" }</>}
-      
-    </div>
+      <ProjectDetailCard project={project}></ProjectDetailCard>
+    </>
   );
 
 

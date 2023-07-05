@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getAllProjects } from "../../utilities/projects-api";
+import ProjectPreviewCard from "../../components/ProjectPreviewCard/ProjectPreviewCard";
 export default function ViewAllProjectsPage() {
     const [projects, setProjects] = useState([]);
 
@@ -18,7 +19,7 @@ export default function ViewAllProjectsPage() {
     return (
         <>
             {projects.map((eachProject) => (
-                <h3 key={eachProject._id}>{eachProject.title}</h3>
+                <ProjectPreviewCard project={eachProject}/>
             ))}
         </>
     );
