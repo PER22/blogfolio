@@ -3,7 +3,7 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 
 export default function BlogPostPreviewCard({post}){
 return (
-    <>  post && {
+    <>   
         <div key={post._id} className="info-card">
             <h2>
                 <Link to={`/blog/${post._id}`}>{post.title}</Link>
@@ -15,7 +15,7 @@ return (
             </div>
             <ReactMarkdown>{post.article.split(' ').slice(0, 100).join(' ')+"..."}</ReactMarkdown>
             {post.image && <img src={post.image} alt="Post" />}
-        </div>}
+        </div>
 </>
 )
 }
