@@ -1,4 +1,3 @@
-const { json } = require('react-router-dom');
 const Profile = require('../../models/profile');
 const Post = require('../../models/post');
 const User = require('../../models/user');
@@ -23,7 +22,7 @@ async function allProfiles(req, res){
 
 async function getProfileById(req, res){
     try{
-        const profile = await Profile.findOne({_id: req.params.profileId});
+        const profile = await Profile.findOne({_id: req.params.profileId}).populate('user');
         res.status(200).json(profile)
     }catch(err){
         console.log(err)
@@ -57,8 +56,8 @@ async function deleteProfile(req, res) {
       if(!selectedProfile){
         return res.status(404).json({error: "Profile not found."});
       }
-      console.log("selectedProfile.user._id:",selectedProfile.user._id);
-      if(selectedProfile.user._id === req.user._id){
+      if(selectedProfile.user._id.toHexString() === req.user._id){
+        await Project.updateMany({ stars: selectedProfile.user._id }, { $pull: { stars: selectedProfile.user._id} });
         await Project.deleteMany({user: selectedProfile.user._id});
         await Post.deleteMany({user: selectedProfile.user._id});
         await Profile.findOneAndDelete({_id: req.params.profileId});

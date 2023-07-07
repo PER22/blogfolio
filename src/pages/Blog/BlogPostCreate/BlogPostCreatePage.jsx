@@ -4,7 +4,7 @@ import { getProjectsBy } from '../../../utilities/projects-api';
 import './BlogPostCreate.css'
 import { useNavigate } from 'react-router-dom';
 
-export default function NewPostForm({user}) {
+export default function NewPostForm({ user }) {
   const [title, setTitle] = useState('');
   const [project, setProject] = useState('');
   const [projectList, setProjectList] = useState([]);
@@ -40,46 +40,48 @@ export default function NewPostForm({user}) {
   };
 
   return (
-    <>
-    <h1>New Post</h1>
-      <form onSubmit={handleCreatePostSubmit} className='post-create-form info-card'>
-        <label>
-          Title:
-          <input
-            type="text"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
-            required
-          />
-        </label>
-        <br/>
-        <label>
-        Project:<br/>
-          <select
-            value={project}
-            onChange={(event) => setProject(event.target.value)}
-            required>
-            <option value="">Select a project</option>
-            {projectList.map((project) => (
-              <option key={project._id} value={project._id}>
-                {project.title}
-              </option>
-            ))}
-          </select>
-        </label>
-        <br/>
-        <label>
-          Article:<br/>
-          <textarea rows="15" cols="35"
-            value={article}
-            onChange={(event) => setArticle(event.target.value)}
-            required>
-          </textarea>
-        </label>
-        <br/>
-        <button type="submit">Create Post</button>
-      </form>
-      {error && <p className="error-message">{error}</p>}
-    </>
+    <>{!user ? <h1 className="info-card">You need to be logged in to write a post.</h1> :
+      <>
+        <h1>New Post</h1>
+        <form onSubmit={handleCreatePostSubmit} className='post-create-form info-card'>
+          <label>
+            Title:
+            <input
+              type="text"
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+              required
+            />
+          </label>
+          <br />
+          <label>
+            Project:<br />
+            <select
+              value={project}
+              onChange={(event) => setProject(event.target.value)}
+              required>
+              <option value="">Select a project</option>
+              {projectList.map((project) => (
+                <option key={project._id} value={project._id}>
+                  {project.title}
+                </option>
+              ))}
+            </select>
+          </label>
+          <br />
+          <label>
+            Article:<br />
+            <textarea rows="15" cols="35"
+              value={article}
+              onChange={(event) => setArticle(event.target.value)}
+              required>
+            </textarea>
+          </label>
+          <br />
+          <button type="submit">Create Post</button>
+        </form>
+        {error && <p className="error-message">{error}</p>}
+      </>
+    }</>
   );
 }

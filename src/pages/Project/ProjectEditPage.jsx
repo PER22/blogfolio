@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getProjectById, updateProject, deleteProject } from '../../utilities/projects-api';
+import ConfirmationModal from '../../components/ConfirmationModal/ConfirmationModal';
 
 
-
-export default function ProjectEditPage({user}) {
+export default function ProjectEditPage({ user }) {
   const { projectId } = useParams();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+
   const handleDeleteProject = async (projectId) => {
     try {
       await deleteProject(projectId);
@@ -49,42 +51,57 @@ export default function ProjectEditPage({user}) {
     }
   };
 
+  const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] = useState(false);
+  const closeModal = () => { setShowDeleteConfirmationModal(false) };
+  const openModal = () => { setShowDeleteConfirmationModal(true) };
+
   return (
-    <div className="info-card">
-      <h1>Edit Project</h1>
-      <form onSubmit={handleUpdateProjectSubmission}>
-        <label>
-          Title:<br />
-          <input
-            type="text"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
-            required
-          /><br />
-        </label>
+    <>
+      <div className="info-card">
+        <h1>Edit Project</h1>
+        <form onSubmit={handleUpdateProjectSubmission}>
+          <label>
+            Title:<br />
+            <input
+              type="text"
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+              required
+            /><br />
+          </label>
 
-        <label>
-          Description:<br />
-          <textarea
-            value={description}
-            onChange={(event) => setDescription(event.target.value)}
-            required
-          ></textarea><br />
-        </label>
+          <label>
+            Description:<br />
+            <textarea
+              value={description}
+              onChange={(event) => setDescription(event.target.value)}
+              required
+            ></textarea><br />
+          </label>
 
-        <label>
-          Image:<br />
-          <input
-            type="text"
-            value={image}
-            onChange={(event) => setImage(event.target.value)}
-          /><br />
-        </label>
+          <label>
+            Image:<br />
+            <input
+              type="text"
+              value={image}
+              onChange={(event) => setImage(event.target.value)}
+            /><br />
+          </label>
 
-        <button type="submit">Update Project</button><br />
-      </form>
-      {error && <p className="error-message">{error}</p>}
-      <button onClick={() => handleDeleteProject(projectId)}>Delete Project</button>
-    </div>
+          <button type="submit">Update Project</button><br />
+        </form>
+        {error && <p className="error-message">{error}</p>}
+        <button onClick={openModal}>Delete Project</button>
+
+      </div>
+      {showDeleteConfirmationModal &&
+        <div className="deletion-confirmation-modal">
+          <ConfirmationModal closeFunction={closeModal}
+            deleteFunction={handleDeleteProject}
+            confirmationText={"This will permanently delete this project and any blog posts about it."}
+            contentId={projectId}
+          />
+        </div>}
+    </>
   );
 }

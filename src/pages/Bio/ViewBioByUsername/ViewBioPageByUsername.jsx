@@ -14,7 +14,6 @@ export default function ViewBioPageByUsername({user}) {
         const fetchData = async () => {
             try {
                 const tempUser = await getUserByUsername(username);
-                console.log(tempUser);
                 if (tempUser) {
                     setSpecifiedUser(tempUser);
                     const tempProfile = await getProfileByIdRequest(tempUser.profile);
@@ -29,7 +28,7 @@ export default function ViewBioPageByUsername({user}) {
     }, [specifiedUser.profile, username]);
 
     return (<>
-        <BioCard profile={specifiedProfile} user={specifiedUser}/>
+        <BioCard profile={specifiedProfile} specifiedUser={specifiedUser}/>
         {user && <>{user &&  specifiedUser.username === user.username ? <Link to="/bio/edit">Edit Profile</Link>  : "" }</>}
     </>);
 }

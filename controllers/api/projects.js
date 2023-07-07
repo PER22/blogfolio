@@ -114,14 +114,18 @@ async function starProject(req, res) {
   try {
     const projectId = req.params.projectId;
     const userId = req.user._id;
-
-    // Add the user's reference to the project's stars array
-    const project = await Project.findByIdAndUpdate(
+    await Project.findByIdAndUpdate(
       projectId,
-      { $addToSet: { stars: userId }, $inc: { numStars: 1 } },
+      { $addToSet: { stars: userId }},
       { new: true }
     );
-
+    const project = await Project.findById(projectId);
+    const numStars = project.stars.length;
+    await Project.findByIdAndUpdate(
+      projectId,
+      { $set: { numStars } },
+      { new: true }
+    );
     res.status(200).json(project);
   } catch (error) {
     console.error('Error starring project:', error);
@@ -132,15 +136,19 @@ async function starProject(req, res) {
 async function unstarProject(req, res) {
   try {
     const projectId = req.params.projectId;
-    const userId = req.user._id;
-
-    // Remove the user's reference from the project's stars array
-    const project = await Project.findByIdAndUpdate(
+    const userId = req.user._id;    
+    await Project.findByIdAndUpdate(
       projectId,
-      { $pull: { stars: userId }, $inc: { numStars: -1 } },
+      { $pull: { stars: userId } },
       { new: true }
-    );
-
+    ); 
+    const project = await Project.findById(projectId);
+    const numStars = project.stars.length; 
+    await Project.findByIdAndUpdate(
+      projectId,
+      { $set: { numStars } },
+      { new: true }
+    ); 
     res.status(200).json(project);
   } catch (error) {
     console.error('Error unstarring project:', error);

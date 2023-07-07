@@ -74,8 +74,8 @@ async function removePost(req, res) {
     if(foundPost.user._id != req.user._id){
       return res.status(403).json({error: "You don't have delete access to this project."});
     }
-    await BlogPost.findByIdAndDelete(req.params.postId);
-    res.status(200);
+    const deletedPost = await BlogPost.findByIdAndDelete(req.params.postId);
+    res.status(200).json(deletedPost);
   } catch (error) {
     console.error('Error deleting blog post:', error);
     res.status(400).json({ error: 'Failed to delete blog post' });
@@ -101,10 +101,21 @@ async function starPost(req, res) {
   try {
     const postId = req.params.postId;
     const userId = req.user._id;
+    const foundPost = await BlogPost.findById(postId);
+    if(!foundPost){
+      return res.status(404).json({eror: "Post not found."});
+    }
     // Add the user's reference to the post's stars array
-    const post = await BlogPost.findByIdAndUpdate(
+    await BlogPost.findByIdAndUpdate(
       postId,
-      { $addToSet: { stars: userId }, $inc: { numStars: 1 } },
+      { $addToSet: { stars: userId }},
+      { new: true }
+    );
+    let post = await BlogPost.findById(postId);
+    const numStars = post.stars.length;
+    post = await BlogPost.findByIdAndUpdate(
+      postId,
+      { $set: { numStars } },
       { new: true }
     );
     res.status(200).json(post);
@@ -123,12 +134,18 @@ async function unstarPost(req, res) {
     if(!foundPost){
       return res.status(404).json({eror: "Post not found."});
     }
-    const post = await BlogPost.findByIdAndUpdate(
+    let post = await BlogPost.findByIdAndUpdate(
       postId,
-      { $pull: { stars: userId }, $inc: { numStars: -1 } },
+      { $pull: { stars: userId } },
       { new: true }
     );
-
+    post = await BlogPost.findById(postId);
+    const numStars = post.stars.length;
+    post = await BlogPost.findByIdAndUpdate(
+      postId,
+      { $set: { numStars } },
+      { new: true }
+    );
     res.status(200).json(post);
   } catch (error) {
     console.error('Error unstarring post:', error);

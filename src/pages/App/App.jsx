@@ -36,9 +36,6 @@ import ViewAllProjectsPage from '../Project/ViewAllProjectsPage'
   //Home
 import HomePage from '../Home/HomePage';
 
-  //Error
-import ErrorPage from '../Error/ErrorPage';
-
 //Components
 import NavigationBar from '../../components/NavigationBar/NavigationBar';
 import FooterBar from '../../components/FooterBar/FooterBar'
@@ -52,7 +49,7 @@ export default function App() {
         <section className='content'>
           <Routes>
             <Route path="/auth" exact element={<AuthPage setUser={setLoggedInUser}/>}/>
-
+            
             <Route path="/bio" exact element={<ViewAllBiosPage/>} />
             <Route path="/bio/edit" element={<EditBioPage user={loggedInUser}/>} />
             <Route path="/bio/:username" element={<ViewBioPageByUsername user={loggedInUser}/>} />
@@ -68,8 +65,6 @@ export default function App() {
             <Route path="/projects/:projectId" element={<ProjectViewPage user={loggedInUser}/>} />
             <Route path="projects/:projectId/edit" element={<ProjectEditPage user={loggedInUser}/>} />
             <Route path="/projects/by/:username"  element={<PortfolioPage/>} />
-            
-            <Route path="/error" element={<ErrorPage/>}/>
             
             <Route path="/" exact element={<HomePage/>} />
           </Routes>
