@@ -13,8 +13,7 @@ export default function NavBar({setUser, user}) {
     <nav className='navbar'>
       <span className='navlinks'>
         
-        <NavLink className='top-level-menu-item' end to="/">Home</NavLink>
-        
+
         {user ? 
             <MenuItems user={user}/>
           : <>

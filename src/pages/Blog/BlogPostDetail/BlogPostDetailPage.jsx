@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPostById } from '../../../utilities/posts-api';
 import { Link } from 'react-router-dom';
-import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import BlogPostCard from '../../../components/BlogPostCard/BlogPostCard';
+import "./BlogPostDetailPage.css"
 
 export default function BlogPostDetailPage({user}) {
   const { postId } = useParams();
@@ -33,9 +33,9 @@ export default function BlogPostDetailPage({user}) {
 
 
   return (
-    <div>
-      {user && <>{user._id === post.user._id? <Link to={`/blog/${postId}/edit`}>Edit Post</Link>: ""}</>}
+    <>
+      {user && <>{user._id === post.user._id? <Link className="edit-post-link" to={`/blog/${postId}/edit`}>Edit Post</Link>: ""}</>}
       <BlogPostCard post={post} user={user} setPost={setPost}/>
-    </div>
+    </>
   );
 }

@@ -19,7 +19,7 @@ export default function ViewAllBiosPage() {
   return (
     <>
       {bios.map((eachBio) => (
-        <BioCard profile={eachBio} user={eachBio.user}/>
+        <BioCard profile={eachBio} specifiedUser={eachBio.user}/>
       ))}
     </>
   );

@@ -29,8 +29,6 @@
   padding: 0.5rem;
 }
 
-
-
 .navlinks .navlink:not(:last-child) {
   margin-right: 1rem;
 }
@@ -40,7 +38,7 @@
   text-decoration: none;
   padding: 0.5rem;
   border-radius: 20px;
-  margin-right: 1.5rem;
+  margin-right: 0.2rem;
 }
 
 

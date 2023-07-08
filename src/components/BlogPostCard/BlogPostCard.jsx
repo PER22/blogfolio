@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { starPost, unstarPost, getPostById } from '../../utilities/posts-api';
+import greyStarIcon from '../../icons/greystar.png'
+import starIcon from '../../icons/star.png'
 export default function BlogPostCard({ post, user, setPost }) {
 
     const handleStarPost = async (postId) => {
@@ -29,11 +31,11 @@ export default function BlogPostCard({ post, user, setPost }) {
 
     useEffect(() => {
         setPostIsStarred(user?._id && post.stars.includes(user._id));
-      }, [post]);
-    
-      useEffect(() => {
+    }, [post, user._id]);
+
+    useEffect(() => {
         setNumStars(post.numStars);
-      }, [post]);
+    }, [post]);
 
 
     return (
@@ -45,17 +47,23 @@ export default function BlogPostCard({ post, user, setPost }) {
                 <h4>
                     <Link to={`/projects/${post.project._id}`}>{post.project.title}</Link>
                 </h4>
-                <ReactMarkdown>{post.article}</ReactMarkdown>
+                
                 <div className="post-info">
+                    <h3>By: {post.user.name}</h3>
                     <p>Written on: {new Date(post.dateCreated).toLocaleDateString()}</p>
-                    <p>By: {post.user.name}</p>
-                    {user && (postIsStarred ?
-                        <button onClick={() => { handleUnstarPost(post._id) }}>Unstar</button>
-                        :
-                        <button onClick={() => { handleStarPost(post._id) }}>Star</button>)}
-                    <h5 className="stars">{numStars} star{numStars !== 1 ? "s" : ""}</h5>
+                    
+                    <div className="star-info">
+                        {user && <img
+                            src={!postIsStarred ? greyStarIcon : starIcon}
+                            className="star-icon"
+                            alt="Star"
+                            onClick={!postIsStarred ? () => handleStarPost(post._id) : () => handleUnstarPost(post._id)}
+                        />}
+                        <span className="num-stars">{numStars} star{numStars !== 1 ? "s" : ""}</span>
+                    </div>
                 </div>
                 {post.image && <img src={post.image} alt="Post" />}
+                <ReactMarkdown>{post.article}</ReactMarkdown>
             </div>
         </>
     )

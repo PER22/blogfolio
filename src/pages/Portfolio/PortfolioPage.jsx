@@ -20,7 +20,7 @@ export default function PortfolioPage() {
     };
 
     fetchProjects();
-  }, []);
+  }, [username]);
 
   return (
     <>
@@ -28,7 +28,7 @@ export default function PortfolioPage() {
       <Link to="/projects/new">Create Project</Link>
       {projects.length === 0 ? <EmptyPortfolioCard /> :
         projects.map((project) => (
-            <ProjectPreviewCard project={project}/>
+            <ProjectPreviewCard key={project._id} project={project}/>
         ))
       }
 

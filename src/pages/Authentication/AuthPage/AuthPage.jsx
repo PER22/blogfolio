@@ -7,8 +7,7 @@ export default function AuthPage({ setUser }) {
   const [showLogin, setShowLogin] = useState(true);
 
   return (
-    <main className="content">
-      {showLogin ?<h1>Log In</h1> : <h1>Sign Up</h1> }
+    <main className="auth-page">
       {showLogin ? <LoginForm setUser={setUser} /> : <SignUpForm setUser={setUser} />}
       <h3 className="toggle-login" onClick={() => setShowLogin(!showLogin)}>{showLogin ? 'Sign Up Instead?' : 'Log In Instead?'}</h3>
     </main>

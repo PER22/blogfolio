@@ -25,10 +25,15 @@ export default function ProjectDetailCard({project , user, setProject}){
   
   const [projectIsStarred, setProjectIsStarred] = useState(user?._id && project.stars.includes(user._id));
   const [numStars, setNumStars] = useState(project.numStars);
+  
+  const [imageLoadError, setImageLoadError] = useState(false);
+  const handleImageLoadError = () => {
+    setImageLoadError(true);
+  };
 
   useEffect(() => {
     setProjectIsStarred(user?._id && project.stars.includes(user._id));
-  }, [project]);
+  }, [project, user._id]);
 
   useEffect(() => {
     setNumStars(project.numStars);
@@ -44,7 +49,14 @@ export default function ProjectDetailCard({project , user, setProject}){
               : 
               <button onClick={()=>{handleStarProject(project._id)}}>Star</button>)}
             <h5 className="stars">{numStars} star{numStars !== 1 ? "s" : ""}</h5>  
-          {project.image && <img className="project-image" src={project.image} alt={project.title} />}
+            {!imageLoadError && project.image && (
+          <img
+            className="project-image"
+            src={project.image}
+            alt={project.title}
+            onError={handleImageLoadError}
+          />
+        )}
           <ReactMarkdown className="project-description-paragraph">{project.description}</ReactMarkdown>
         </div>
         
