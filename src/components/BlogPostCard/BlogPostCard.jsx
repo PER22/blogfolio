@@ -26,12 +26,12 @@ export default function BlogPostCard({ post, user, setPost }) {
         }
     };
 
-    const [postIsStarred, setPostIsStarred] = useState(user?._id && post.stars.includes(user._id));
+    const [postIsStarred, setPostIsStarred] = useState(user?._id && post.stars.includes(user?._id));
     const [numStars, setNumStars] = useState(post.numStars);
 
     useEffect(() => {
-        setPostIsStarred(user?._id && post.stars.includes(user._id));
-    }, [post, user._id]);
+        setPostIsStarred(user?._id && post.stars.includes(user?._id));
+    }, [post, user?._id]);
 
     useEffect(() => {
         setNumStars(post.numStars);

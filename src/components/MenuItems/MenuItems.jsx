@@ -7,28 +7,31 @@ export default function MenuItems({ user }) {
   const [projectsMenuOpened, setProjectsMenuOpened] = useState(false);
   const [blogMenuOpened, setBlogMenuOpened] = useState(false);
 
-  function toggleProfileMenuOpened() {
-    setProfileMenuOpened(!profileMenuOpened);
-    setProjectsMenuOpened(false);
-    setBlogMenuOpened(false);
+  function openProfileMenu() {
+    setProfileMenuOpened(true);
+  }
+  function closeProfileMenu() {
+    setProfileMenuOpened(false);
   }
 
-  function toggleProjectsMenuOpened() {
-    setProjectsMenuOpened(!projectsMenuOpened);
-    setProfileMenuOpened(false);
-    setBlogMenuOpened(false);
+  function openProjectsMenu() {
+    setProjectsMenuOpened(true);
+  }
+  function closeProjectsMenu() {
+    setProjectsMenuOpened(false);
   }
 
-  function toggleBlogMenuOpened() {
-    setBlogMenuOpened(!blogMenuOpened);
-    setProfileMenuOpened(false);
-    setProjectsMenuOpened(false);
+  function openBlogMenu() {
+    setBlogMenuOpened(true);
+  }
+  function closeBlogMenu() {
+    setBlogMenuOpened(false);
   }
 
   return (
     <>
-      <div className="menu-category">
-        <div className='top-level-menu-item' onClick={toggleProfileMenuOpened}>
+      <div onMouseOver={openProfileMenu} onMouseLeave={closeProfileMenu} className="menu-category">
+        <div className='top-level-menu-item'>
           Profiles
           <div className={`dropdown-contents ${!profileMenuOpened ? 'category-closed' : ''}`}>
             <NavLink className="dropdown-link" end to="/bio">
@@ -40,8 +43,8 @@ export default function MenuItems({ user }) {
           </div>
         </div>
       </div>
-      <div className={`menu-category`}>
-        <div className='top-level-menu-item' onClick={toggleProjectsMenuOpened}>
+      <div onMouseOver={openProjectsMenu} onMouseLeave={closeProjectsMenu} className={`menu-category`}>
+        <div className='top-level-menu-item'>
           Projects
           <div className={`dropdown-contents ${!projectsMenuOpened ? 'category-closed' : ''}`}>
             <NavLink className="dropdown-link" end to="/projects">
@@ -53,8 +56,8 @@ export default function MenuItems({ user }) {
           </div>
         </div>
       </div>
-      <div className={`menu-category `}>
-        <div className='top-level-menu-item' onClick={toggleBlogMenuOpened}>
+      <div onMouseOver={openBlogMenu} onMouseLeave={closeBlogMenu} className={`menu-category `}>
+        <div className='top-level-menu-item'>
           Blogs
           <div className={`dropdown-contents ${!blogMenuOpened ? 'category-closed' : ''}`}>
             <NavLink className="dropdown-link" end to="/blog">

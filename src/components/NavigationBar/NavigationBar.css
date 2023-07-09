@@ -20,23 +20,29 @@
   color: black;
 }
 
-.navlinks {
-  display: flex;
-  align-items: center;
+.navbar a:hover{
+  color: white;
 }
 
-.navlinks .top-level-menu-item {
+.navlinks {
+  display: flex;
+  align-items: left;
+}
+
+.top-level-menu-item {
   padding: 0.5rem;
 }
 
-.navlinks .navlink:not(:last-child) {
-  margin-right: 1rem;
+.top-level-menu-item:hover {
+  cursor: pointer;
+  color: white;
 }
 
 .auth-link {
   color: black;
   text-decoration: none;
-  padding: 0.5rem;
+  padding-top: 0.5rem;
+  padding-right: .5rem;
   border-radius: 20px;
   margin-right: 0.2rem;
 }

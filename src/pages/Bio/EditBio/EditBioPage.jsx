@@ -45,7 +45,7 @@ export default function EditBioPage({ user }) {
     event.preventDefault();
     try {
       const updatedProfile = await updateProfileRequest(user.profile, profileData);
-      navigate(`profile/${updatedProfile._id}`);
+      navigate(`/bio/${updatedProfile.user.username}`);
     } catch (error) {
       setError('Failed to update profile. Please try again.');
       console.log('Error updating profile:', error);
@@ -73,57 +73,54 @@ export default function EditBioPage({ user }) {
   const openModal = () => { setShowDeleteConfirmationModal(true) };
 
   return (
-    <>{ !user ? <h1>You need to be logged in to edit your profile.</h1> :
+    <>{!user ? <h1>You need to be logged in to edit your profile.</h1> :
       <>
-        <div>
-          <h1 className="page-heading">Edit Profile</h1>
-          <form className="info-card" onSubmit={updateProfile}>
-            <label>
-              Bio: <br />
-            </label>
-            <textarea
-              rows="15"
-              cols="50"
-              name="bio_string"
-              value={profileData.bio_string}
-              onChange={handleChange}
-              required
-            />
-            <label>
-              Profile Picture Link: <br />
-            </label>
-            <input
-              type="text"
-              name="profilePicture"
-              value={profileData.profilePicture}
-              onChange={handleChange}
-              required
-            />
+        <h1 className="page-heading">Edit Your Profile</h1>
+        <form className="info-card" onSubmit={updateProfile}>
+          <label>
+            Bio: <br />
+          </label>
+          <textarea
+            rows="15"
+            cols="50"
+            name="bio_string"
+            value={profileData.bio_string}
+            onChange={handleChange}
+            required
+          />
+          <label>
+            Profile Picture Link: <br />
+          </label>
+          <input
+            type="text"
+            name="profilePicture"
+            value={profileData.profilePicture}
+            onChange={handleChange}
+            required
+          />
 
-            <label>
-              Github Link:<br />
-            </label>
-            <input
-              type="text"
-              name="github_link"
-              value={profileData.github_link}
-              onChange={handleChange}
-            />
+          <label>
+            Github Link:<br />
+          </label>
+          <input
+            type="text"
+            name="github_link"
+            value={profileData.github_link}
+            onChange={handleChange}
+          />
 
-            <button type="submit">Update Profile</button>
-          </form>
-          {error && <p className="error-message">{error}</p>}
-          <button onClick={openModal}>Delete Profile?</button>
-        </div>
+          <button className="form-submit-button" type="submit">Update Profile</button>
+        </form>
+        {error && <p className="error-message">{error}</p>}
+        <button className="delete-profile-button" onClick={openModal}>Delete Profile?</button>
+
 
         {showDeleteConfirmationModal &&
-          <div className="deletion-confirmation-modal">
             <ConfirmationModal closeFunction={closeModal}
               deleteFunction={handleDeleteProfile}
               confirmationText={"This will permanently delete your profile, projects, and blog posts."}
               contentId={user.username}
-            />
-          </div>}
+            />}
       </>
     }</>
   );

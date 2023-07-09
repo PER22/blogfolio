@@ -10,10 +10,10 @@ export default function HomePage() {
       </div>
       <div className="info-card">
         <p>You don't need to be logged in to read profiles, blog posts, or projects.
-          You can follow the links here or in the navigation bar to see
-              <Link className='navlink' end to={`blog`}> everyone's blogs</Link>, 
-              <Link className='navlink' end to={`projects`}> everyone's projects</Link>,
-              and <Link className='navlink' end to={`bio`}> everyone's profiles</Link>.
+          You can follow the links here or in the navigation bar to see everyone's&nbsp;
+          <Link className='homepage-link' end to={`blog`}>blogs</Link>,&nbsp;
+          <Link className='homepage-link' end to={`projects`}>projects</Link>,
+          and&nbsp;<Link className='homepage-link' end to={`bio`}>profiles</Link>.
         </p>
       </div>
     </>

@@ -8,7 +8,6 @@ export default function ConfirmationModal({closeFunction, deleteFunction, confir
     return (
         <div className="confirmation-modal-background">
             <div className="confirmation-modal-container">
-                <button onClick={closeFunction}> X </button>
                 <div className="confirmation-modal-title">
                     <h1>Confirm Delete?</h1>
                 </div>
@@ -16,8 +15,8 @@ export default function ConfirmationModal({closeFunction, deleteFunction, confir
                     <p>{confirmationText}</p>
                 </div>
                 <div className="confirmation-modal-footer">
-                    <button onClick={closeFunction}>Cancel</button>
-                    <button onClick={()=> handleDelete(contentId)}>Delete</button>
+                    <button className="modal-button cancel-button" onClick={closeFunction}>Cancel</button>
+                    <button className="modal-button delete-button" onClick={()=> handleDelete(contentId)}>Delete</button>
                 </div>
             </div>
         </div>

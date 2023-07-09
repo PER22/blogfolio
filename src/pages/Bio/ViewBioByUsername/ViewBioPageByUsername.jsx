@@ -28,7 +28,7 @@ export default function ViewBioPageByUsername({user}) {
     }, [specifiedUser.profile, username]);
 
     return (<>
-        {user && <>{user &&  specifiedUser.username === user.username ? <Link to="/bio/edit">Edit Profile</Link>  : "" }</>}
+        {user && <>{user &&  specifiedUser.username === user.username ? <Link className="edit-profile-link" to="/bio/edit">Edit Profile</Link>  : "" }</>}
         <BioCard profile={specifiedProfile} specifiedUser={specifiedUser}/>
     </>);
 }

@@ -20,3 +20,16 @@
     border: 3px solid black;
     margin-right: 1rem;
 }
+
+.edit-profile-link{
+    padding: 1rem;
+    background-color: #F3974E;
+    border-radius: 1rem;
+    color: black;
+    text-decoration: none;
+    border: 2px solid #00000000;
+}
+
+.edit-profile-link:hover{
+    border: 2px solid black;
+}

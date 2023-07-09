@@ -33,12 +33,14 @@ async function getProfileById(req, res){
 async function updateProfile(req, res) {
     try {
         const selectedProfile = await Profile.findOne({_id: req.params.profileId}).populate("user");
-        if (selectedProfile.user._id === req.user._id){
+        console.log("selectedProfile.user._id.toHexString(): ", selectedProfile.user._id.toHexString());
+        console.log("req.user._id: ", req.user._id)
+        if (selectedProfile.user._id.toHexString() === req.user._id){
           const updatedProfile = await Profile.findOneAndUpdate(
             { _id: req.params.profileId},
             { bio_string: req.body.bio_string || "", profilePicture: req.body.profilePicture || "", github_link : req.body.github_link || "" },
             { new: true }
-          );
+          ).populate("user");
           return res.status(200).json(updatedProfile);
         }else{
           return res.status(403).json({ error: "You don't have edit access to that!" })
