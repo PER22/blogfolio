@@ -1,8 +1,11 @@
+:root{
+    --nav-bar-bg-color: #F3974E;
+}
 .dropdown-contents{
     display: flex;
     flex-direction: column;
     position: absolute;
-    background: linear-gradient(to bottom, var(--nav-bar-bg-color), var(--active-nav-tab-bg-color));
+    background: linear-gradient(to bottom, #F3974E, #f3984faa);
     color: var(--nav-bar-text-color);
     padding:.5rem;
     border-bottom-right-radius: .25rem;

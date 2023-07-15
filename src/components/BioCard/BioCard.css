@@ -16,8 +16,8 @@
 }
 
 .profile-pic {
-    width: 4em;
-    height: 4em;
+    min-width: 4em;
+    max-width: 8em;
     border-radius: 10%;
     border: 3px solid black;
     margin-right: .3rem;
