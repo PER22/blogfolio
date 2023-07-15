@@ -55,7 +55,7 @@ export default function App() {
             <Route path="/bio/:username" element={<ViewBioPageByUsername user={loggedInUser}/>} />
             
             <Route path="/blog" exact element={<AllBlogPostsPage/>} />
-            <Route path="/blog/by/:username" element={<BlogPostByUsernamePage/>} />
+            <Route path="/blog/by/:username" element={<BlogPostByUsernamePage user={loggedInUser}/>} />
             <Route path="/blog/new" element={<BlogPostCreatePage  user={loggedInUser}/>}/>
             <Route path="/blog/:postId/edit" element={<BlogPostEditPage  user={loggedInUser}/>} />
             <Route path="/blog/:postId" element={<BlogPostDetailPage user={loggedInUser}/>} />
@@ -64,7 +64,7 @@ export default function App() {
             <Route path="/projects/new" element={<ProjectCreatePage user={loggedInUser}/>}/>
             <Route path="/projects/:projectId" element={<ProjectViewPage user={loggedInUser}/>} />
             <Route path="projects/:projectId/edit" element={<ProjectEditPage user={loggedInUser}/>} />
-            <Route path="/projects/by/:username"  element={<PortfolioPage/>} />
+            <Route path="/projects/by/:username"  element={<PortfolioPage user={loggedInUser}/>} />
             
             <Route path="/" exact element={<HomePage/>} />
           </Routes>

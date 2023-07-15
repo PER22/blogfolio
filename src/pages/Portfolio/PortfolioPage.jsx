@@ -5,7 +5,7 @@ import EmptyPortfolioCard from '../../components/EmptyPortfolioCard/EmptyPortfol
 import "./PortfolioPage.css"
 import ProjectPreviewCard from '../../components/ProjectPreviewCard/ProjectPreviewCard';
 
-export default function PortfolioPage() {
+export default function PortfolioPage({user}) {
   const [projects, setProjects] = useState([]);
   const {username} = useParams();
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function PortfolioPage() {
   return (
     <>
 
-      <Link to="/projects/new">Create Project</Link>
+      {user && <Link to="/projects/new">Create Project</Link>}
       {projects.length === 0 ? <EmptyPortfolioCard /> :
         projects.map((project) => (
             <ProjectPreviewCard key={project._id} project={project}/>

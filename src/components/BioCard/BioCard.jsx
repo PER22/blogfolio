@@ -1,3 +1,5 @@
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import './BioCard.css'
 export default function BioCard({specifiedUser, profile}) {
     return (<><div className="info-card">
         <div className="profile-pic-and-names">
@@ -8,7 +10,7 @@ export default function BioCard({specifiedUser, profile}) {
                 {profile.github_link && <h4><a href={profile.github_link}>Github</a></h4>}
             </div>
         </div>
-        <h4>{profile.bio_string}</h4>
+        <ReactMarkdown>{profile.bio_string}</ReactMarkdown>
     </div>
     </>);
 }

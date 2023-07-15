@@ -13,7 +13,7 @@ return (
                 <p>By: <em>{post.user.name}</em></p>
                 <p>Project: <Link to={`/projects/${post.project._id}`}>{post.project.title}</Link></p>
             </div>
-            <ReactMarkdown>{post.article.split(' ').slice(0, 100).join(' ')+"..."}</ReactMarkdown>
+            <ReactMarkdown>{post.article.split(' ').slice(0, 60).join(' ')+"..."}</ReactMarkdown>
             {post.image && <img src={post.image} alt="Post" />}
         </div>
 </>

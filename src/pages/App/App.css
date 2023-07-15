@@ -2,10 +2,13 @@
   --body-bg-color: #698E9C;
   --content-text-color: white;
   
-  --active-nav-tab-bg-color: #f3984e4e;
-  --active-nav-tab-text-color: white;
+
+
 }
 
+body{
+  min-zoom: 1;
+}
 
 
 .content{
@@ -36,7 +39,12 @@ body {
   margin-left: 1rem;
   margin-right: 1rem;
   overflow: hidden;
-  width: 75%
+  width: 90%;
+  
+}
+
+.info-card ul{
+  padding-left: 1rem;
 }
 
 form{
@@ -60,6 +68,7 @@ label {
 .info-card h1,.info-card h2,.info-card h3{
   margin-top: .25rem;
   margin-bottom: .25rem;
+  padding: 0;
 }
 
 
@@ -112,3 +121,6 @@ label {
   font-weight: 500;
 }
 
+code {
+  white-space : pre-wrap !important;
+}
