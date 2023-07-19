@@ -23,7 +23,7 @@ export default function NewPostForm({ user }) {
     };
 
     fetchProjects();
-  }, []);
+  }, [user.username]);
 
 
   const handleCreatePostSubmit = async (event) => {

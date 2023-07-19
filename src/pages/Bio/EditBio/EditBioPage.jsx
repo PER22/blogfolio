@@ -29,7 +29,7 @@ export default function EditBioPage({ user }) {
       }
     };
     fetchProfile();
-  }, []);
+  }, [profileData, user.profile]);
 
   const navigate = useNavigate();
 

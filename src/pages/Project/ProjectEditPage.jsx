@@ -58,7 +58,6 @@ export default function ProjectEditPage({ user }) {
   return (
     <>
       <div className="info-card">
-        <h1>Edit Project</h1>
         <form onSubmit={handleUpdateProjectSubmission}>
           <label>
             Title:<br />

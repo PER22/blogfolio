@@ -25,7 +25,7 @@ export default function PortfolioPage({user}) {
   return (
     <>
 
-      {user && <Link to="/projects/new">Create Project</Link>}
+      {user && <Link className="button" to="/projects/new">Create Project</Link>}
       {projects.length === 0 ? <EmptyPortfolioCard /> :
         projects.map((project) => (
             <ProjectPreviewCard key={project._id} project={project}/>

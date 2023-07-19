@@ -40,7 +40,7 @@ export default function BlogPostEditPage({ user }) {
     };
 
     fetchProjects();
-  }, []);
+  }, [user.username]);
 
   const handleUpdatePostSubmit = async (event) => {
     event.preventDefault();
@@ -72,7 +72,6 @@ export default function BlogPostEditPage({ user }) {
   return (
     <>
       <div className="info-card">
-        <h1>Edit Post</h1>
         <form onSubmit={handleUpdatePostSubmit}>
           <label>
             Title:<br />

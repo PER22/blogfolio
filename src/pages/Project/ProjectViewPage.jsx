@@ -28,7 +28,7 @@ export default function ProjectViewPage({user}) {
   // const lines = project.description.split("\n");
   return (
     <>
-      {user && <>{project.user._id === user._id ? <Link to={`/projects/${project._id}/edit`}>Edit Project</Link> : "" }</>}
+      {user && <>{project.user._id === user._id ? <Link className="button" to={`/projects/${project._id}/edit`}>Edit Project</Link> : "" }</>}
       <ProjectDetailCard project={project} user={user} setProject={setProject}></ProjectDetailCard>
     </>
   );

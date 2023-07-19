@@ -1,7 +1,4 @@
-
-import { useNavigate } from "react-router-dom";
 export default function ConfirmationModal({closeFunction, deleteFunction, confirmationText, contentId}){
-    const navigate = useNavigate();
     const handleDelete = async (id) => {
         await deleteFunction(id);
       };

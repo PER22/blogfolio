@@ -34,7 +34,7 @@ export default function BlogPostDetailPage({user}) {
 
   return (
     <>
-      {user && <>{user._id === post.user._id? <Link className="edit-post-link" to={`/blog/${postId}/edit`}>Edit Post</Link>: ""}</>}
+      {user && <>{user._id === post.user._id? <Link className="button" to={`/blog/${postId}/edit`}>Edit Post</Link>: ""}</>}
       <BlogPostCard post={post} user={user} setPost={setPost}/>
     </>
   );

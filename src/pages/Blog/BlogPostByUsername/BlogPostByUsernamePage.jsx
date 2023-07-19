@@ -1,4 +1,4 @@
-import React, { useEffect, useState, use } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getPostsBy } from '../../../utilities/posts-api';
 import { Link, useParams } from 'react-router-dom';
 import BlogPostPreviewCard from '../../../components/BlogPostPreviewCard/BlogPostPreviewCard';
@@ -20,11 +20,11 @@ export default function BlogPostByUsernamePage() {
     };
 
     fetchUserPosts();
-  }, []);
+  }, [username]);
 
   return (
     <>
-      <Link to="/blog/new">New Post</Link>
+      <Link to="/blog/new" className="button">New Post</Link>
       {posts.length===0 ? <EmptyBlogCard/> : 
       posts.map((post) => (
         <BlogPostPreviewCard className="info-card" post={post}/>
